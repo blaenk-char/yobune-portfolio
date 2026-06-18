@@ -16,5 +16,13 @@ export const primitives = {
     .string(ERROR_MESSAGE.username.string)
     .min(3, ERROR_MESSAGE.username.min)
     .max(50, ERROR_MESSAGE.username.max)
-    .regex(/^[a-zA-Z0-9_-]+$/, ERROR_MESSAGE.username.regex)
+    .regex(/^[a-zA-Z0-9_-]+$/, ERROR_MESSAGE.username.regex),
+  string: {
+    email: zString(ERROR_MESSAGE.required.email),
+    password: zString(ERROR_MESSAGE.required.password)
+  }
+}
+
+function zString(message: string) {
+  return z.string(message).min(1, message)
 }

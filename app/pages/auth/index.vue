@@ -4,7 +4,8 @@ import { UI_TEXT } from '#shared/constants'
 
 /* Page */
 definePageMeta({
-  layout: 'public'
+  layout: 'public',
+  middleware: 'guest'
 })
 
 /* Constants */
@@ -23,7 +24,9 @@ const items = [
 <template>
   <UCard class="max-w-xl mx-auto mt-[10vh]">
     <UTabs :items>
-      <template #login></template>
+      <template #login>
+        <AuthLoginForm />
+      </template>
 
       <template #register>
         <AuthRegisterForm />

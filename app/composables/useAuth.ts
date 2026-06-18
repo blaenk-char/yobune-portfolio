@@ -19,9 +19,8 @@ export const useAuth = () => {
 
   /* Functions */
   async function login(payload: LoginPayload) {
-    const { data, error } = await supabase.auth.signInWithPassword(payload)
+    const { error } = await supabase.auth.signInWithPassword(payload)
     if (error) throw error
-    return data
   }
 
   async function logout() {
