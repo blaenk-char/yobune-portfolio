@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from '~~/shared/constants'
-import type { PaginatedProfiles } from '~~/shared/types/user'
+import { ERROR_MESSAGE } from '#shared/constants'
+import type { PaginatedProfiles } from '#shared/types/user'
 
 /**
  * Admin only composable for listing and managing users.

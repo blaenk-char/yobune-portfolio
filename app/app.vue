@@ -1,6 +1,6 @@
 <script setup>
 /* Imports */
-import { DIALOG_CONFIG } from '~~/shared/constants'
+import { DIALOG_CONFIG } from '#shared/constants'
 
 /* Head */
 useHead({

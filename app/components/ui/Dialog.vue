@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DIALOG_CONFIG, type DialogId, DIALOGS } from '~~/shared/constants'
+import { DIALOG_CONFIG, type DialogId, DIALOGS } from '#shared/constants'
 
 /* Props */
 const props = defineProps<{ id: DialogId }>()

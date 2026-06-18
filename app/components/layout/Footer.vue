@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { FOOTER_CONFIG, SOCIALS, UI_TEXT } from '~~/shared/constants'
+import { FOOTER_CONFIG, SOCIALS, UI_TEXT } from '#shared/constants'
 </script>
 
 <template>

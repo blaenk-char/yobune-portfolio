@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DialogId, NSFW_CONFIG, NSFW_IMAGES } from '~~/shared/constants'
+import { DialogId, NSFW_CONFIG, NSFW_IMAGES } from '#shared/constants'
 
 /* Constants */
 const settingsStore = useSettingsStore()

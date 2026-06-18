@@ -1,7 +1,7 @@
 import { useSettingsStore } from '#imports'
 import { setActivePinia, createPinia } from 'pinia'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { CURSOR_CONFIG, NSFW_CONFIG } from '~~/shared/constants'
+import { CURSOR_CONFIG, NSFW_CONFIG } from '#shared/constants'
 
 describe('useSettingsStore', () => {
   let store: ReturnType<typeof useSettingsStore>

@@ -1,5 +1,5 @@
 import z from 'zod'
-import { ERROR_MESSAGE } from '~~/shared/constants'
+import { ERROR_MESSAGE } from '#shared/constants'
 
 const schema = z.object({
   username: z

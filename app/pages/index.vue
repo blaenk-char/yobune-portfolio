@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { TITLES } from '~~/shared/constants'
+import { TITLES } from '#shared/constants'
 
 /* Page */
 definePageMeta({

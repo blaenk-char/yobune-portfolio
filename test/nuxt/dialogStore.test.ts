@@ -2,7 +2,7 @@ import { useDialogStore } from '#imports'
 import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import { DIALOGS, DIALOG_CONFIG } from '~~/shared/constants'
+import { DIALOGS, DIALOG_CONFIG } from '#shared/constants'
 
 describe('useDialogStore', () => {
   let store: ReturnType<typeof useDialogStore>

@@ -1,4 +1,4 @@
-import { DIALOG_CONFIG } from '~~/shared/constants'
+import { DIALOG_CONFIG } from '#shared/constants'
 
 /**
  * Displays text in typewriter style.

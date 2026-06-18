@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { UI_TEXT } from '~~/shared/constants'
+import { UI_TEXT } from '#shared/constants'
 
 /* Props */
 defineProps<{

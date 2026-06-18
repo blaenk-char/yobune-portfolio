@@ -1,7 +1,4 @@
 <script setup lang="ts">
-/* Imports */
-import { onMounted, ref } from 'vue'
-
 /* Props */
 defineProps({
   imageA: { type: String, required: true },

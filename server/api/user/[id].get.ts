@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '~~/shared/constants'
+import { ERROR_MESSAGE } from '#shared/constants'
 
 export default defineEventHandler(async (event) => {
   // only super_admin can change roles

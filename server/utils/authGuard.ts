@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { H3Event } from 'h3'
 import { createError, getHeader } from 'h3'
 import type { user_role } from '~~/generated/prisma'
-import { ERROR_MESSAGE } from '~~/shared/constants'
+import { ERROR_MESSAGE } from '#shared/constants'
 
 /**
  * Extracts and verifies the Bearer JWT from the Authorization header.

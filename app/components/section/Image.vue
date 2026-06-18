@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DialogId, IMAGES } from '~~/shared/constants'
+import { DialogId, IMAGES } from '#shared/constants'
 </script>
 
 <template>

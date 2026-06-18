@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from '~~/shared/constants'
-import type { UpdateProfilePayload } from '~~/shared/types/user'
+import { ERROR_MESSAGE } from '#shared/constants'
+import type { UpdateProfilePayload } from '#shared/types/user'
 
 /**
  * Fetches and caches the current user's profile.

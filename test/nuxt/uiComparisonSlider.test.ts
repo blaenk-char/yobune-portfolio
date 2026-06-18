@@ -1,6 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it, vi } from 'vitest'
-import { WORK_CONFIG } from '~~/shared/constants'
+import { WORK_CONFIG } from '#shared/constants'
 import ComparisonSlider from '~/components/ui/ComparisonSlider.vue'
 
 const PROPS = {

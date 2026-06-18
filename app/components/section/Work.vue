@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DialogId, WORK_CONFIG } from '~~/shared/constants'
+import { DialogId, WORK_CONFIG } from '#shared/constants'
 
 /* Constants */
 const { isMobile } = useDevice()

@@ -1,4 +1,4 @@
-import { CURSOR_CONFIG, NSFW_CONFIG } from '~~/shared/constants'
+import { CURSOR_CONFIG, NSFW_CONFIG } from '#shared/constants'
 
 export const useSettingsStore = defineStore('settingsStore', () => {
   /* Refs */
