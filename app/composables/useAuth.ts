@@ -40,19 +40,9 @@ export const useAuth = () => {
   }
 
   async function confirm(payload: ConfirmPayload) {
-    const route = useRoute()
-    const token = route.query['token'] as string
-    if (!token) throw new Error(ERROR_MESSAGE.user.session)
-
-    const { data, error } = await supabase.auth.verifyOtp({
-      token_hash: token,
-      type: 'signup'
-    })
-
     return withLoading(loading, () =>
       $fetch('/api/auth/confirm', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
         body: payload
       })
     )

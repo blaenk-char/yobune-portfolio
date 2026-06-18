@@ -13,10 +13,8 @@ export async function requireAuth(event: H3Event, allowedRoles?: user_role[]) {
   const token = getHeader(event, 'authorization')?.replace('Bearer ', '')
 
   if (!token) {
-    throw createError({ statusCode: 401, statusMessage: ERROR_MESSAGE.authGuard.token })
+    throw createError({ statusCode: 401, statusMessage: ERROR_MESSAGE.auth.token })
   }
-
-  console.log(token)
 
   // verify token with supabase
   const supabase = createClient(config.public.supabaseUrl, config.public.supabaseKey)
@@ -25,15 +23,8 @@ export async function requireAuth(event: H3Event, allowedRoles?: user_role[]) {
     error
   } = await supabase.auth.getUser(token)
 
-  console.log(error, user)
-
   if (error || !user) {
-    throw createError({ statusCode: 401, statusMessage: ERROR_MESSAGE.authGuard.invalid })
-  }
-
-  // if no roles precised, return user without profile
-  if (!allowedRoles) {
-    return { user }
+    throw createError({ statusCode: 401, statusMessage: ERROR_MESSAGE.auth.invalid })
   }
 
   // fetch profile

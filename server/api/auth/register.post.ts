@@ -19,13 +19,20 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
   // create auth user and let supabase send confirmation mail
-  await admin.auth.signUp({
+  const { error } = await admin.auth.signUp({
     email,
     password,
     options: {
       emailRedirectTo: `${config.public.siteUrl}/auth/confirm`
     }
   })
+
+  if (error) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: error.message
+    })
+  }
 
   return {
     message: SUCCESS_MESSAGE.register

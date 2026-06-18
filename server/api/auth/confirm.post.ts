@@ -2,7 +2,6 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
 import { confirmSchema } from '#shared/schemas'
 
 export default defineEventHandler(async (event) => {
-  const { user } = await requireAuth(event)
   const body = await readBody(event)
   const parsed = confirmSchema.safeParse(body)
 
@@ -22,10 +21,30 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 409, statusMessage: ERROR_MESSAGE.username.unique })
   }
 
-  // create auth user and let supabase send confirmation mail
+  const admin = useSupabaseAdmin()
+
+  // confirm email
+  const { data, error } = await admin.auth.verifyOtp({
+    token_hash: body.token,
+    type: 'signup'
+  })
+
+  if (error) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: error.message
+    })
+  }
+
+  // check if user found
+  if (!data.user) {
+    throw createError({ statusCode: 401, statusMessage: ERROR_MESSAGE.auth.user })
+  }
+
+  // create user profile
   await prisma.profiles.create({
     data: {
-      id: user.id,
+      id: data.user.id,
       username
     }
   })

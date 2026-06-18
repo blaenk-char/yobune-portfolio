@@ -32,6 +32,7 @@ export interface RegisterPayload {
 
 export interface ConfirmPayload {
   username: string
+  token: string
 }
 
 export interface ForgotPasswordPayload {

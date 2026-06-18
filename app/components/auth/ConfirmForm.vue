@@ -7,6 +7,8 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
 const { loading, confirm } = useAuth()
+const route = useRoute()
+const router = useRouter()
 
 /* Refs */
 const state = reactive<Partial<ConfirmSchema>>({
@@ -16,8 +18,9 @@ const state = reactive<Partial<ConfirmSchema>>({
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<ConfirmSchema>) {
   try {
-    const data = await confirm(event.data)
+    const data = await confirm({ ...event.data, token: route.query.token as string })
     addToast(data.message, 'success')
+    router.push('/auth')
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')
   }

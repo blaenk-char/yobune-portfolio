@@ -1,7 +1,8 @@
 export const ERROR_MESSAGE = {
-  authGuard: {
+  auth: {
     token: 'Missing auth token',
-    invalid: 'Invalid or expired token'
+    invalid: 'Invalid or expired token',
+    user: 'User not found'
   },
   email: 'Email is not valid',
   password: {
