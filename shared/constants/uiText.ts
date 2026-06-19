@@ -5,6 +5,7 @@ export const UI_TEXT = {
   email: 'Email',
   error: 'Error',
   login: 'Login',
+  logout: 'Logout',
   password: 'Password',
   profile: 'Profile',
   register: 'Register',
