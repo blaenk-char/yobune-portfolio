@@ -36,8 +36,10 @@ async function onSubmit(event: FormSubmitEvent<LoginSchema>) {
     <UFormField :label="UI_TEXT.password" name="password">
       <AuthPasswordInput v-model="state.password" />
     </UFormField>
+    <!-- Forgot Password -->
+    <AuthForgotPasswordLink />
     <!-- Submit -->
-    <UiCenterDiv>
+    <UiCenterDiv class="mt-3">
       <UButton type="submit" :label="UI_TEXT.login" block :loading class="w-1/2" />
     </UiCenterDiv>
   </UForm>

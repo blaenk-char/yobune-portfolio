@@ -1,9 +1,10 @@
 export const UI_TEXT = {
   confirm: 'Confirm',
   contact: 'Contact',
-  created_by: 'Created by',
+  createdBy: 'Created by',
   email: 'Email',
   error: 'Error',
+  forgotPassword: 'Forgot password?',
   login: 'Login',
   logout: 'Logout',
   password: 'Password',
@@ -12,6 +13,6 @@ export const UI_TEXT = {
   showLess: 'Show Less',
   showMore: 'Show More',
   success: 'Success',
-  title_confirm: 'Confirm you profile',
+  titleConfirm: 'Confirm you profile',
   username: 'Username'
 }

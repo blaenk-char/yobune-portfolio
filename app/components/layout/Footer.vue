@@ -29,14 +29,14 @@ import { FOOTER_CONFIG, SOCIALS, UI_TEXT } from '#shared/constants'
       <span class="hidden sm:inline-block">•</span>
       <!-- Credit -->
       <span class="flex items-center gap-1">
-        {{ UI_TEXT.created_by }}
+        {{ UI_TEXT.createdBy }}
         <UButton
           icon="i-simple-icons-github"
           color="neutral"
           variant="ghost"
           :to="FOOTER_CONFIG.credit"
           target="_blank"
-          class="p-1"
+          class="p-1 cursor-default"
         />
       </span>
     </template>

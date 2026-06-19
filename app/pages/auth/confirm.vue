@@ -12,7 +12,7 @@ definePageMeta({
 <template>
   <UCard class="max-w-xl mx-auto mt-[10vh]">
     <template #title>
-      {{ UI_TEXT.title_confirm }}
+      {{ UI_TEXT.titleConfirm }}
     </template>
 
     <AuthConfirmForm />

@@ -7,12 +7,14 @@ export default defineAppConfig({
       neutral: 'zinc'
     },
 
+    // Button
     button: {
       slots: {
         base: ['disabled:cursor-default']
       }
     },
 
+    // Card
     card: {
       slots: {
         title: 'text-default'
@@ -80,6 +82,11 @@ export default defineAppConfig({
       slots: {
         overlay: 'cursor-pointer'
       }
+    },
+
+    // Link
+    link: {
+      base: 'cursor-default'
     }
   }
 })
