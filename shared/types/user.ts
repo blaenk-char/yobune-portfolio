@@ -41,6 +41,7 @@ export interface ForgotPasswordPayload {
 
 export interface ResetPasswordPayload {
   password: string
+  token: string
 }
 
 export interface UpdateProfilePayload {

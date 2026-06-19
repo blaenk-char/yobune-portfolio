@@ -1,4 +1,3 @@
-import { ERROR_MESSAGE } from '#shared/constants'
 import type {
   ConfirmPayload,
   ForgotPasswordPayload,
@@ -19,8 +18,10 @@ export const useAuth = () => {
 
   /* Functions */
   async function login(payload: LoginPayload) {
-    const { error } = await supabase.auth.signInWithPassword(payload)
-    if (error) throw error
+    return withLoading(loading, async () => {
+      const { error } = await supabase.auth.signInWithPassword(payload)
+      if (error) throw error
+    })
   }
 
   async function logout() {
@@ -48,22 +49,21 @@ export const useAuth = () => {
   }
 
   async function forgotPassword(payload: ForgotPasswordPayload) {
-    return $fetch('/api/auth/forgot-password', {
-      method: 'POST',
-      body: payload
-    })
+    return withLoading(loading, () =>
+      $fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        body: payload
+      })
+    )
   }
 
   async function resetPassword(payload: ResetPasswordPayload) {
-    const session = await supabase.auth.getSession()
-    const token = session.data.session?.access_token
-    if (!token) throw new Error(ERROR_MESSAGE.user.session)
-
-    return $fetch('/api/auth/reset-password', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: payload
-    })
+    return withLoading(loading, () =>
+      $fetch('/api/auth/reset-password', {
+        method: 'POST',
+        body: payload
+      })
+    )
   }
 
   /* Return */

@@ -20,7 +20,7 @@ async function onSubmit(event: FormSubmitEvent<ConfirmSchema>) {
   try {
     const data = await confirm({ ...event.data, token: route.query.token as string })
     addToast(data.message, 'success')
-    router.push('/auth')
+    router.push('/')
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')
   }

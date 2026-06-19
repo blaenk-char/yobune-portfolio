@@ -1,38 +1,60 @@
-import z from 'zod'
+import { useSupabaseAdmin } from '#server/utils/supabaseAdmin'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
-
-const schema = z.object({
-  password: z
-    .string(ERROR_MESSAGE.password.string)
-    .min(8, ERROR_MESSAGE.password.min)
-    .max(128, ERROR_MESSAGE.password.max)
-    .regex(/[A-Z]/, ERROR_MESSAGE.password.regex.uppercase)
-    .regex(/[a-z]/, ERROR_MESSAGE.password.regex.lowercase)
-    .regex(/[0-9]/, ERROR_MESSAGE.password.regex.number)
-    .regex(/[!@#$%^&*(),.?":{}|<>]/, ERROR_MESSAGE.password.regex.special)
-    .refine((val) => !/\s/.test(val), ERROR_MESSAGE.password.regex.spaces)
-})
+import { resetPasswordSchema } from '#shared/schemas/reset-password.schema'
+import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
-  // user must be authenticated (recovery session counts)
-  const { user } = await requireAuth(event)
-
   const body = await readBody(event)
-  const parsed = schema.safeParse(body)
+  const parsed = resetPasswordSchema.safeParse(body)
+
+  console.log('BODY', body)
 
   // validate user input
   if (!parsed.success) {
-    throw createError({ statusCode: 422, statusMessage: parsed.error.issues[0]?.message })
+    throw createError({
+      statusCode: 422,
+      statusMessage: parsed.error.issues[0]?.message
+    })
   }
 
-  // update user password
-  const admin = useSupabaseAdmin()
-  const { error } = await admin.auth.admin.updateUserById(user.id, {
-    password: parsed.data.password
+  const { password } = parsed.data
+
+  const supabase = await serverSupabaseClient(event)
+
+  // get user by token
+  const { data, error } = await supabase.auth.verifyOtp({
+    token_hash: body.token,
+    type: 'recovery'
   })
+  console.log('DATA', data)
+  console.log('ERROR', error)
 
   if (error) {
-    throw createError({ statusCode: 400, statusMessage: error.message })
+    throw createError({
+      statusCode: 500,
+      statusMessage: error.message
+    })
+  }
+
+  // check if user found
+  if (!data.user) {
+    throw createError({ statusCode: 401, statusMessage: ERROR_MESSAGE.auth.user })
+  }
+
+  const admin = useSupabaseAdmin()
+
+  // update user password
+  const { error: updateError } = await admin.auth.admin.updateUserById(data.user.id, {
+    password
+  })
+
+  console.log('UPDATE ERROR', updateError)
+
+  if (updateError) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: updateError.message
+    })
   }
 
   return { message: SUCCESS_MESSAGE.updatePassword }
