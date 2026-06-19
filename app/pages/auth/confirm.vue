@@ -10,11 +10,7 @@ definePageMeta({
 </script>
 
 <template>
-  <UCard class="max-w-xl mx-auto mt-[10vh]">
-    <template #title>
-      {{ UI_TEXT.titleConfirm }}
-    </template>
-
+  <AuthCard :title="UI_TEXT.titleConfirm">
     <AuthConfirmForm />
-  </UCard>
+  </AuthCard>
 </template>

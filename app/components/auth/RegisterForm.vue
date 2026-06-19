@@ -7,6 +7,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
 const { loading, register } = useAuth()
+const router = useRouter()
 
 /* Refs */
 const state = reactive<Partial<RegisterSchema>>({
@@ -19,6 +20,7 @@ async function onSubmit(event: FormSubmitEvent<RegisterSchema>) {
   try {
     const data = await register(event.data)
     addToast(data.message, 'success')
+    router.push('/')
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')
   }
@@ -37,8 +39,6 @@ async function onSubmit(event: FormSubmitEvent<RegisterSchema>) {
       <AuthPasswordInput v-model="state.password" />
     </UFormField>
     <!-- Submit -->
-    <UiCenterDiv>
-      <UButton type="submit" :label="UI_TEXT.register" block :loading class="w-1/2" />
-    </UiCenterDiv>
+    <UiSubmitButton :label="UI_TEXT.register" :loading />
   </UForm>
 </template>

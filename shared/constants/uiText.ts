@@ -10,9 +10,12 @@ export const UI_TEXT = {
   password: 'Password',
   profile: 'Profile',
   register: 'Register',
+  resetPassword: 'Reset Password',
+  sendLink: 'Send Link',
   showLess: 'Show Less',
   showMore: 'Show More',
   success: 'Success',
   titleConfirm: 'Confirm you profile',
+  titleForgotPassword: 'Send a reset link',
   username: 'Username'
 }

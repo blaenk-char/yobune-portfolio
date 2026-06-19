@@ -35,8 +35,6 @@ async function onSubmit(event: FormSubmitEvent<ConfirmSchema>) {
       <UInput v-model="state.username" />
     </UFormField>
     <!-- Submit -->
-    <UiCenterDiv>
-      <UButton type="submit" :label="UI_TEXT.confirm" block :loading class="w-1/2" />
-    </UiCenterDiv>
+    <UiSubmitButton :label="UI_TEXT.confirm" :loading />
   </UForm>
 </template>

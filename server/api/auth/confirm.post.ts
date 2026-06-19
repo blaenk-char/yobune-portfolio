@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
 import { confirmSchema } from '#shared/schemas'
+import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -21,10 +22,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 409, statusMessage: ERROR_MESSAGE.username.unique })
   }
 
-  const admin = useSupabaseAdmin()
+  const supabase = await serverSupabaseClient(event)
 
   // confirm email
-  const { data, error } = await admin.auth.verifyOtp({
+  const { data, error } = await supabase.auth.verifyOtp({
     token_hash: body.token,
     type: 'signup'
   })

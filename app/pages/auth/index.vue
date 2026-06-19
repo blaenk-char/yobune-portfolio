@@ -22,7 +22,7 @@ const items = [
 </script>
 
 <template>
-  <UCard class="max-w-xl mx-auto mt-[10vh]">
+  <AuthCard>
     <UTabs :items>
       <template #login>
         <AuthLoginForm />
@@ -32,5 +32,5 @@ const items = [
         <AuthRegisterForm />
       </template>
     </UTabs>
-  </UCard>
+  </AuthCard>
 </template>

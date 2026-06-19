@@ -39,8 +39,6 @@ async function onSubmit(event: FormSubmitEvent<LoginSchema>) {
     <!-- Forgot Password -->
     <AuthForgotPasswordLink />
     <!-- Submit -->
-    <UiCenterDiv class="mt-3">
-      <UButton type="submit" :label="UI_TEXT.login" block :loading class="w-1/2" />
-    </UiCenterDiv>
+    <UiSubmitButton :label="UI_TEXT.login" :loading />
   </UForm>
 </template>
