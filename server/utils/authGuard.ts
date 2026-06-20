@@ -1,14 +1,13 @@
+import { ERROR_MESSAGE } from '#shared/constants'
 import { createClient } from '@supabase/supabase-js'
 import type { H3Event } from 'h3'
 import { createError, getHeader } from 'h3'
-import type { user_role } from '~~/generated/prisma'
-import { ERROR_MESSAGE } from '#shared/constants'
 
 /**
  * Extracts and verifies the Bearer JWT from the Authorization header.
  * Returns the Supabase user with their profile.
  */
-export async function requireAuth(event: H3Event, allowedRoles?: user_role[]) {
+export async function requireAuth(event: H3Event, allowedRoles?: UserRole[]) {
   const config = useRuntimeConfig()
   const token = getHeader(event, 'authorization')?.replace('Bearer ', '')
 

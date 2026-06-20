@@ -51,13 +51,7 @@ export default defineNuxtConfig({
   },
 
   supabase: {
-    redirect: true,
-    redirectOptions: {
-      login: '/auth',
-      callback: '/auth/confirm',
-      exclude: ['/', '/auth', '/auth/forgot-password', '/auth/reset-password'],
-      saveRedirectToCookie: true
-    },
+    redirect: false,
     cookieOptions: {
       maxAge: 60 * 60 * 24, // 24 hours
       sameSite: 'lax',

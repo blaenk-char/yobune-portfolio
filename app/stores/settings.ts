@@ -1,6 +1,6 @@
 import { CURSOR_CONFIG, NSFW_CONFIG } from '#shared/constants'
 
-export const useSettingsStore = defineStore('settingsStore', () => {
+export const useSettingsStore = defineStore('settings', () => {
   /* Refs */
   const cursor = ref<boolean>(true)
   const nsfw = ref<boolean>(NSFW_CONFIG.default)

@@ -1,4 +1,4 @@
-import { SUCCESS_MESSAGE } from '#shared/constants'
+import { PAGES, SUCCESS_MESSAGE } from '#shared/constants'
 import { registerSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     email,
     password,
     options: {
-      emailRedirectTo: `${config.public.siteUrl}/auth/confirm`
+      emailRedirectTo: `${config.public.siteUrl + PAGES.confirm.url}`
     }
   })
 

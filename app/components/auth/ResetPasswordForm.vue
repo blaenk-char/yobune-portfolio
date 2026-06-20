@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
-import { UI_TEXT } from '#shared/constants'
+import { PAGES, UI_TEXT } from '#shared/constants'
 import { resetPasswordSchema, type ResetPasswordSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
@@ -20,7 +20,7 @@ async function onSubmit(event: FormSubmitEvent<ResetPasswordSchema>) {
   try {
     const data = await resetPassword({ ...event.data, token: route.query.token as string })
     addToast(data.message, 'success')
-    router.push('/auth')
+    router.push(PAGES.auth.url)
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')
   }

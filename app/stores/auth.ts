@@ -1,32 +1,20 @@
+import type { Profile } from '#shared/types/user'
+
 export const useAuthStore = defineStore('auth', () => {
   /* Refs */
-  const profile = ref<AuthUser | null>(null)
-
-  /* Computeds */
-  const isLoggedIn = computed(() => !!profile.value)
-  const role = computed(() => profile.value?.role ?? null)
-  const isAdmin = computed(() => role.value === 'admin' || role.value === 'super_admin')
-  const isSuperAdmin = computed(() => role.value === 'super_admin')
-  const isEmailVerified = computed(() => !!profile.value?.emailConfirmedAt)
+  const profile = ref<Profile | null>(null)
+  const ready = ref(false)
 
   /* Functions */
-  function setProfile(p: AuthUser | null) {
-    profile.value = p
-  }
-
-  function clearProfile() {
+  function clear() {
     profile.value = null
+    ready.value = true
   }
 
   /* Return */
   return {
     profile,
-    isLoggedIn,
-    role,
-    isAdmin,
-    isSuperAdmin,
-    isEmailVerified,
-    setProfile,
-    clearProfile
+    ready,
+    clear
   }
 })

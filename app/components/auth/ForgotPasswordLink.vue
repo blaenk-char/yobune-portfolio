@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /* Imports */
-import { UI_TEXT } from '#shared/constants'
+import { PAGES, UI_TEXT } from '#shared/constants'
 </script>
 
 <template>
   <div class="flex justify-end">
-    <ULink to="/auth/forgot-password">{{ UI_TEXT.forgotPassword }}</ULink>
+    <ULink :to="PAGES.forgotPassword.url">{{ UI_TEXT.forgotPassword }}</ULink>
   </div>
 </template>

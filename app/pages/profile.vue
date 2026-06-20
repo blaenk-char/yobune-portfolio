@@ -1,9 +1,11 @@
 <script setup lang="ts">
+/* Imports */
 import LogoutButton from '~/components/auth/LogoutButton.vue'
 
 /* Page */
 definePageMeta({
-  layout: 'public'
+  layout: 'public',
+  middleware: 'auth'
 })
 </script>
 

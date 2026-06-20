@@ -4,6 +4,7 @@ export const UI_TEXT = {
   createdBy: 'Created by',
   email: 'Email',
   error: 'Error',
+  forbidden: 'Forbidden',
   forgotPassword: 'Forgot password?',
   login: 'Login',
   logout: 'Logout',

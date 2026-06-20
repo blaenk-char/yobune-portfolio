@@ -1,3 +1,4 @@
+import { PAGES } from '#shared/constants'
 import type {
   ConfirmPayload,
   ForgotPasswordPayload,
@@ -11,7 +12,6 @@ import type {
 export const useAuth = () => {
   /* Constants */
   const supabase = useSupabaseClient()
-  const user = useSupabaseUser()
 
   /* Refs */
   const loading = ref<boolean>(false)
@@ -27,7 +27,7 @@ export const useAuth = () => {
   async function logout() {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
-    await navigateTo('/auth')
+    await navigateTo(PAGES.auth.url)
   }
 
   async function register(payload: RegisterPayload) {
@@ -69,7 +69,6 @@ export const useAuth = () => {
   /* Return */
   return {
     loading,
-    user,
     login,
     logout,
     register,

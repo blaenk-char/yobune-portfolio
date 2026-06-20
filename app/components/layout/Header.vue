@@ -13,7 +13,7 @@ import {
 /* Constants */
 const settingsStore = useSettingsStore()
 const { reset } = useDialogStore()
-const { profile } = useUserProfile()
+const { profile } = storeToRefs(useAuthStore())
 const showSmClass = 'hidden sm:inline-flex'
 
 /* Computeds */
@@ -55,9 +55,13 @@ const cursorLabel = computed(() =>
       <USwitch v-model="settingsStore.nsfw" :label="NSFW_CONFIG.label" :class="showSmClass" />
 
       <!-- Profile -->
-      <a :href="PAGES.profile.url" :class="showSmClass">
-        <UAvatar v-if="profile" :text="profile?.username.at(0)?.toUpperCase()" />
-        <UButton v-else>{{ UI_TEXT.login }}</UButton>
+      <a v-if="profile" :href="PAGES.profile.url" :class="showSmClass">
+        <UAvatar :text="profile.username.at(0)?.toUpperCase()" />
+      </a>
+
+      <!-- Auth -->
+      <a v-else :href="PAGES.auth.url" :class="showSmClass">
+        <UButton>{{ UI_TEXT.login }}</UButton>
       </a>
     </template>
 
@@ -71,8 +75,8 @@ const cursorLabel = computed(() =>
 
           <USeparator class="my-2" />
 
-          <!-- Profile -->
-          <a :href="PAGES.profile.url">
+          <!-- Profile / Auth -->
+          <a :href="profile ? PAGES.profile.url : PAGES.auth.url">
             <UButton variant="ghost" size="md" color="neutral" block class="justify-start">
               {{ profile ? UI_TEXT.profile : `${UI_TEXT.login} / ${UI_TEXT.register}` }}
             </UButton>

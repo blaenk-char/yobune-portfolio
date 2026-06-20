@@ -1,23 +1,9 @@
 export type UserRole = 'super_admin' | 'admin' | 'user'
 
-export interface AuthUser {
+export interface Profile {
   id: string
-  email: string | undefined
-  emailConfirmedAt: string | null
   username: string
   role: UserRole
-  createdAt: string
-  updatedAt: string
-}
-
-export interface PaginatedProfiles {
-  data: AuthUser[]
-  meta: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
 }
 
 export interface LoginPayload {

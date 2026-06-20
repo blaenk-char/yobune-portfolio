@@ -1,4 +1,4 @@
-import { SUCCESS_MESSAGE } from '#shared/constants'
+import { PAGES, SUCCESS_MESSAGE } from '#shared/constants'
 import { forgotPasswordSchema } from '#shared/schemas/forgot-password.schema'
 import { serverSupabaseClient } from '#supabase/server'
 
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   // send link by email to reset password
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${config.public.siteUrl}/auth/reset-password`
+    redirectTo: `${config.public.siteUrl + PAGES.resetPassword.url}`
   })
 
   if (error) {

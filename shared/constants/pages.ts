@@ -11,8 +11,23 @@ export const PAGES = {
     url: '/profile'
   },
 
-  // Login
-  login: {
-    url: '/auth/login'
+  // Auth
+  auth: {
+    url: '/auth'
+  },
+
+  // Confirm
+  confirm: {
+    url: '/auth/confirm'
+  },
+
+  // Forgot password
+  forgotPassword: {
+    url: '/auth/forgot-password'
+  },
+
+  // Reset password
+  resetPassword: {
+    url: '/auth/reset-password'
   }
 } satisfies Record<string, PageConfig>
