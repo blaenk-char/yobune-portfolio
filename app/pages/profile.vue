@@ -7,6 +7,13 @@ definePageMeta({
   layout: 'public',
   middleware: 'auth'
 })
+
+/* Constants */
+const sections: Record<string, Component> = {
+  profile: () => undefined,
+  security: () => undefined,
+  notifications: () => undefined
+}
 </script>
 
 <template>
@@ -16,6 +23,12 @@ definePageMeta({
       <UPageAside>
         <UNavigationMenu :items="PROFILE_MENU" orientation="vertical" />
       </UPageAside>
+    </template>
+
+    <!-- Content -->
+    <template v-for="({ id, label }, key) in PROFILE_MENU" :key>
+      <UiTitle :id :title="label || ''" variant="primary" />
+      <component :is="sections[id]" />
     </template>
   </UPage>
 </template>
