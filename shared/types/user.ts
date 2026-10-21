@@ -30,6 +30,6 @@ export interface ResetPasswordPayload {
   token: string
 }
 
-export interface UpdateProfilePayload {
-  username?: string
+export interface UsernamePayload {
+  username: string
 }

@@ -22,7 +22,6 @@ const titleCLass = computed(() => {
 <template>
   <div :id class="font-bold" :class="titleCLass">
     {{ title }}
+    <USeparator v-if="variant === 'primary'" class="my-3" />
   </div>
-
-  <USeparator v-if="variant === 'primary'" class="my-3" />
 </template>

@@ -4,7 +4,7 @@ import type {
   ForgotPasswordPayload,
   RegisterPayload,
   ResetPasswordPayload
-} from '#shared/types/user'
+} from '#shared/types'
 
 /**
  * Composable handling auth calls.

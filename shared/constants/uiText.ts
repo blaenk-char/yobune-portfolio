@@ -18,5 +18,6 @@ export const UI_TEXT = {
   success: 'Success',
   titleConfirm: 'Confirm you profile',
   titleForgotPassword: 'Send a reset link',
-  username: 'Username'
+  username: 'Username',
+  usernameUpdate: 'Update Username'
 }

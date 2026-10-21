@@ -1,19 +1,13 @@
 <script setup lang="ts">
 /* Imports */
-import { PROFILE_MENU } from '~~/shared/constants'
+import ProfileUsername from '~/components/profile/Username.vue'
+import { PROFILE_MENU, PROFILE_SECTIONS } from '~~/shared/constants'
 
 /* Page */
 definePageMeta({
   layout: 'public',
   middleware: 'auth'
 })
-
-/* Constants */
-const sections: Record<string, Component> = {
-  profile: () => undefined,
-  security: () => undefined,
-  notifications: () => undefined
-}
 </script>
 
 <template>
@@ -27,8 +21,10 @@ const sections: Record<string, Component> = {
 
     <!-- Content -->
     <template v-for="({ id, label }, key) in PROFILE_MENU" :key>
-      <UiTitle :id :title="label || ''" variant="primary" />
-      <component :is="sections[id]" />
+      <UiTitle :id :title="label || ''" variant="primary" :class="{ 'mt-3!': key === 0 }" />
+
+      <!-- Username -->
+      <ProfileUsername v-if="id === PROFILE_SECTIONS.username" />
     </template>
   </UPage>
 </template>
