@@ -3,13 +3,14 @@
 const props = defineProps<{
   title: string
   variant: 'primary' | 'secondary'
+  id?: string
 }>()
 
 /* Functions */
 const titleCLass = computed(() => {
   switch (props.variant) {
     case 'primary':
-      return 'text-3xl sm:text-4xl mt-20'
+      return 'text-2xl sm:text-3xl mt-20'
     case 'secondary':
       return 'text-lg sm:text-xl mb-2 ml-2'
     default:
@@ -19,7 +20,7 @@ const titleCLass = computed(() => {
 </script>
 
 <template>
-  <div class="font-bold" :class="titleCLass">
+  <div :id class="font-bold" :class="titleCLass">
     {{ title }}
   </div>
 

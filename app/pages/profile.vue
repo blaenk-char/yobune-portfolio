@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import LogoutButton from '~/components/auth/LogoutButton.vue'
+import { PROFILE_MENU } from '~~/shared/constants'
 
 /* Page */
 definePageMeta({
@@ -10,5 +10,12 @@ definePageMeta({
 </script>
 
 <template>
-  <LogoutButton />
+  <UPage>
+    <!-- List Aside -->
+    <template #left>
+      <UPageAside>
+        <UNavigationMenu :items="PROFILE_MENU" orientation="vertical" />
+      </UPageAside>
+    </template>
+  </UPage>
 </template>
