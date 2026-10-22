@@ -8,6 +8,7 @@
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "supabase:start": "supabase start",
     "format": "prettier --write .",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
