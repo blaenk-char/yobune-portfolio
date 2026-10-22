@@ -26,7 +26,6 @@ export default defineEventHandler(async (event) => {
     token_hash: body.token,
     type: 'recovery'
   })
-  console.log('DATA', data)
   console.log('ERROR', error)
 
   if (error) {

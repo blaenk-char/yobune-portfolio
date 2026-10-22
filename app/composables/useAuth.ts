@@ -1,5 +1,7 @@
 import { PAGES } from '#shared/constants'
 import type {
+  ChangeEmailPayload,
+  ConfirmEmailPayload,
   ConfirmPayload,
   ForgotPasswordPayload,
   RegisterPayload,
@@ -66,6 +68,29 @@ export const useAuth = () => {
     )
   }
 
+  async function changeEmail(payload: ChangeEmailPayload) {
+    return withLoading(loading, () =>
+      $fetch('/api/auth/change-email', {
+        method: 'POST',
+        body: payload
+      })
+    )
+  }
+
+  async function confirmEmail(payload: ConfirmEmailPayload) {
+    return withLoading(loading, async () => {
+      const { data, error } = await supabase.auth.verifyOtp({
+        type: 'email_change',
+        token_hash: payload.token
+      })
+
+      if (error) throw error
+
+      await supabase.auth.refreshSession()
+      return data
+    })
+  }
+
   /* Return */
   return {
     loading,
@@ -74,6 +99,8 @@ export const useAuth = () => {
     register,
     confirm,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    changeEmail,
+    confirmEmail
   }
 }

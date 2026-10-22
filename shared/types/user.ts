@@ -33,3 +33,11 @@ export interface ResetPasswordPayload {
 export interface UsernamePayload {
   username: string
 }
+
+export interface ChangeEmailPayload {
+  email: string
+}
+
+export interface ConfirmEmailPayload {
+  token: string
+}

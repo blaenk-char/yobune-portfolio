@@ -3,6 +3,7 @@
 import { UI_TEXT } from '#shared/constants'
 import { loginSchema, type LoginSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
+import type { AuthError } from '@supabase/supabase-js'
 
 /* Constants */
 const { loading, login } = useAuth()
@@ -20,7 +21,7 @@ async function onSubmit(event: FormSubmitEvent<LoginSchema>) {
     await login(event.data)
     router.push('/')
   } catch (error: unknown) {
-    addToast((error as Error).message, 'error')
+    addToast((error as AuthError).message, 'error')
   }
 }
 </script>

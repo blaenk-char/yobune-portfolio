@@ -1,6 +1,5 @@
 <script setup lang="ts">
 /* Imports */
-import ProfileUsername from '~/components/profile/Username.vue'
 import { PROFILE_MENU, PROFILE_SECTIONS } from '~~/shared/constants'
 
 /* Page */
@@ -25,6 +24,9 @@ definePageMeta({
 
       <!-- Username -->
       <ProfileUsername v-if="id === PROFILE_SECTIONS.username" />
+
+      <!-- Email -->
+      <ProfileEmail v-if="id === PROFILE_SECTIONS.email" />
     </template>
   </UPage>
 </template>

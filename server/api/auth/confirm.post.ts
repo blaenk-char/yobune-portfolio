@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
     token_hash: body.token,
     type: 'signup'
   })
+  console.log('ERROR', error)
 
   if (error) {
     throw createError({

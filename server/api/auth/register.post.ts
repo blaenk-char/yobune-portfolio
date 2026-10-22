@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
       emailRedirectTo: `${config.public.siteUrl + PAGES.confirm.url}`
     }
   })
+  console.log('ERROR', error)
 
   if (error) {
     throw createError({

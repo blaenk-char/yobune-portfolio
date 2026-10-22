@@ -87,6 +87,13 @@ export default defineAppConfig({
     // Link
     link: {
       base: 'cursor-default'
+    },
+
+    // Hero
+    pageHero: {
+      slots: {
+        title: 'text-3xl sm:text-5xl'
+      }
     }
   }
 })

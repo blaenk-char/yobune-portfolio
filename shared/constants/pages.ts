@@ -29,5 +29,10 @@ export const PAGES = {
   // Reset password
   resetPassword: {
     url: '/auth/reset-password'
+  },
+
+  // Change email
+  changeEmail: {
+    url: '/auth/change-email'
   }
 } satisfies Record<string, PageConfig>

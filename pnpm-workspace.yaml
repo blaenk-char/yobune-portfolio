@@ -2,9 +2,13 @@ ignoredBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
   - esbuild
-  - unrs-resolver
   - vue-demi
 onlyBuiltDependencies:
   - '@prisma/engines'
   - prisma
   - supabase
+  - unrs-resolver
+packageExtensions:
+  '@nuxtjs/supabase':
+    dependencies:
+      h3: 1.15.11

@@ -1,4 +1,4 @@
-import { UI_TEXT } from '#shared/constants'
+import { ERROR_MESSAGE, UI_TEXT } from '#shared/constants'
 
 /**
  * Add a toast with prepared params
@@ -12,7 +12,7 @@ export function addToast(message: string | undefined, type: 'success' | 'error')
 
   toast.add({
     title: isSuccess ? UI_TEXT.success : UI_TEXT.error,
-    description: message,
+    description: message || ERROR_MESSAGE.server,
     color: type
   })
 }

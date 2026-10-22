@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${config.public.siteUrl + PAGES.resetPassword.url}`
   })
+  console.log('ERROR', error)
 
   if (error) {
     throw createError({
