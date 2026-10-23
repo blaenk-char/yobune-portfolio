@@ -1,4 +1,4 @@
-import type { UsernamePayload } from '~~/shared/types'
+import type { MessageResponse, Profile, UsernamePayload } from '~~/shared/types'
 
 export const useProfile = () => {
   /* Constants */
@@ -17,7 +17,7 @@ export const useProfile = () => {
         return
       }
 
-      authStore.profile = await $fetch('/api/profile/me', {
+      authStore.profile = await $fetch<Profile>('/api/profile/me', {
         headers: { Authorization: `Bearer ${session.value.access_token}` }
       })
 
@@ -29,13 +29,13 @@ export const useProfile = () => {
     return withLoading(loading, async () => {
       const session = useSupabaseSession()
 
-      const data = await $fetch('/api/profile/username', {
+      const data = await $fetch<MessageResponse>('/api/profile/username', {
         headers: { Authorization: `Bearer ${session.value?.access_token}` },
         method: 'PUT',
         body: payload
       })
 
-      authStore.profile = data.profile
+      await fetchProfile()
 
       return data
     })

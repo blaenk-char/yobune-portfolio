@@ -28,13 +28,12 @@ export default defineEventHandler(async (event) => {
   }
 
   // update user profile
-  const updatedProfile = await prisma.profiles.update({
+  await prisma.profiles.update({
     where: { id: profile.id },
     data: { username }
   })
 
   return {
-    message: SUCCESS_MESSAGE.usernameUpdated,
-    profile: updatedProfile
+    message: SUCCESS_MESSAGE.usernameUpdated
   }
 })

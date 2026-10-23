@@ -4,6 +4,7 @@ import type {
   ConfirmEmailPayload,
   ConfirmPayload,
   ForgotPasswordPayload,
+  MessageResponse,
   RegisterPayload,
   ResetPasswordPayload
 } from '#shared/types'
@@ -34,7 +35,7 @@ export const useAuth = () => {
 
   async function register(payload: RegisterPayload) {
     return withLoading(loading, () =>
-      $fetch('/api/auth/register', {
+      $fetch<MessageResponse>('/api/auth/register', {
         method: 'POST',
         body: payload
       })
@@ -43,7 +44,7 @@ export const useAuth = () => {
 
   async function confirm(payload: ConfirmPayload) {
     return withLoading(loading, () =>
-      $fetch('/api/auth/confirm', {
+      $fetch<MessageResponse>('/api/auth/confirm', {
         method: 'POST',
         body: payload
       })
@@ -52,7 +53,7 @@ export const useAuth = () => {
 
   async function forgotPassword(payload: ForgotPasswordPayload) {
     return withLoading(loading, () =>
-      $fetch('/api/auth/forgot-password', {
+      $fetch<MessageResponse>('/api/auth/forgot-password', {
         method: 'POST',
         body: payload
       })
@@ -61,7 +62,7 @@ export const useAuth = () => {
 
   async function resetPassword(payload: ResetPasswordPayload) {
     return withLoading(loading, () =>
-      $fetch('/api/auth/reset-password', {
+      $fetch<MessageResponse>('/api/auth/reset-password', {
         method: 'POST',
         body: payload
       })
@@ -70,7 +71,7 @@ export const useAuth = () => {
 
   async function changeEmail(payload: ChangeEmailPayload) {
     return withLoading(loading, () =>
-      $fetch('/api/auth/change-email', {
+      $fetch<MessageResponse>('/api/auth/change-email', {
         method: 'POST',
         body: payload
       })

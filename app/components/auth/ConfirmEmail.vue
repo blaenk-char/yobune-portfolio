@@ -15,8 +15,12 @@ const statusMessage = ref<string | undefined>(UI_TEXT.emailUpdating)
 async function onSubmit() {
   try {
     await confirmEmail({ token: route.query.token as string })
+
+    // feedback
     statusMessage.value = UI_TEXT.redirecting
     addToast(SUCCESS_MESSAGE.emailUpdate, 'success')
+
+    // redirect to profile
     await navigateTo(PAGES.profile.url)
   } catch (error: unknown) {
     statusMessage.value = (error as AuthError).message || ERROR_MESSAGE.server

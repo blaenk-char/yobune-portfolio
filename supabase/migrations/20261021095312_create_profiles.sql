@@ -5,26 +5,8 @@ create type public.user_role as enum ('super_admin', 'admin', 'user');
 create table public.profiles (
   id         uuid primary key references auth.users (id) on delete cascade,
   username   varchar(64) not null unique,
-  role       public.user_role not null default 'user',
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  role       public.user_role not null default 'user'
 );
-
--- Keep updated_at fresh
-create function public.set_updated_at()
-returns trigger
-language plpgsql
-set search_path = ''
-as $$
-begin
-  new.updated_at = now();
-  return new;
-end;
-$$;
-
-create trigger trg_profiles_updated_at
-  before update on public.profiles
-  for each row execute function public.set_updated_at();
 
 -- Row Level Security
 alter table public.profiles enable row level security;

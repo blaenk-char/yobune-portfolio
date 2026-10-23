@@ -13,7 +13,7 @@ import {
 /* Constants */
 const settingsStore = useSettingsStore()
 const { reset } = useDialogStore()
-const { profile } = storeToRefs(useAuthStore())
+const authStore = useAuthStore()
 const showSmClass = 'hidden sm:inline-flex'
 
 /* Computeds */
@@ -55,8 +55,8 @@ const cursorLabel = computed(() =>
       <USwitch v-model="settingsStore.nsfw" :label="NSFW_CONFIG.label" :class="showSmClass" />
 
       <!-- Profile -->
-      <a v-if="profile" :href="PAGES.profile.url" :class="showSmClass">
-        <UAvatar :text="profile.username.at(0)?.toUpperCase()" />
+      <a v-if="authStore.profile" :href="PAGES.profile.url" :class="showSmClass">
+        <UAvatar :text="authStore.profile.username.at(0)?.toUpperCase()" />
       </a>
 
       <!-- Auth -->
@@ -76,9 +76,9 @@ const cursorLabel = computed(() =>
           <USeparator class="my-2" />
 
           <!-- Profile / Auth -->
-          <a :href="profile ? PAGES.profile.url : PAGES.auth.url">
+          <a :href="authStore.profile ? PAGES.profile.url : PAGES.auth.url">
             <UButton variant="ghost" size="md" color="neutral" block class="justify-start">
-              {{ profile ? UI_TEXT.profile : `${UI_TEXT.login} / ${UI_TEXT.register}` }}
+              {{ authStore.profile ? UI_TEXT.profile : `${UI_TEXT.login} / ${UI_TEXT.register}` }}
             </UButton>
           </a>
         </div>
