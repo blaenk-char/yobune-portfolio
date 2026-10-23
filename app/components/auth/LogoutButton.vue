@@ -16,5 +16,5 @@ async function onLogout() {
 </script>
 
 <template>
-  <UButton :label="UI_TEXT.logout" @click="onLogout" />
+  <UButton :label="UI_TEXT.logout" color="error" block @click="onLogout" />
 </template>

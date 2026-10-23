@@ -1,13 +1,11 @@
 import { useSupabaseAdmin } from '#server/utils/supabaseAdmin'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
-import { resetPasswordSchema } from '#shared/schemas/reset-password.schema'
+import { resetPasswordSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const parsed = resetPasswordSchema.safeParse(body)
-
-  console.log('BODY', body)
 
   // validate user input
   if (!parsed.success) {

@@ -9,19 +9,18 @@ export const useProfile = () => {
 
   /* Functions */
   async function fetchProfile() {
-    withLoading(loading, async () => {
+    return withLoading(loading, async () => {
       const session = useSupabaseSession()
-
-      if (!session.value) {
+      try {
+        if (!session.value) return
+        authStore.profile = await $fetch<Profile>('/api/profile/me', {
+          headers: { Authorization: `Bearer ${session.value.access_token}` }
+        })
+      } catch {
+        authStore.profile = null
+      } finally {
         authStore.ready = true
-        return
       }
-
-      authStore.profile = await $fetch<Profile>('/api/profile/me', {
-        headers: { Authorization: `Bearer ${session.value.access_token}` }
-      })
-
-      authStore.ready = true
     })
   }
 

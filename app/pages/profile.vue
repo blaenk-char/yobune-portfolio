@@ -27,6 +27,12 @@ definePageMeta({
 
       <!-- Email -->
       <ProfileEmail v-if="id === PROFILE_SECTIONS.email" />
+
+      <!-- Password -->
+      <ProfilePassword v-if="id === PROFILE_SECTIONS.password" />
+
+      <!-- Logout -->
+      <ProfileLogout v-if="id === PROFILE_SECTIONS.logout" />
     </template>
   </UPage>
 </template>

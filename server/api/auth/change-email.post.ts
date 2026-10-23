@@ -1,5 +1,5 @@
 import { PAGES, SUCCESS_MESSAGE } from '#shared/constants'
-import { changeEmailSchema } from '#shared/schemas/'
+import { changeEmailSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {

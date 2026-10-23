@@ -8,17 +8,17 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   // wait for auth store to be ready
   if (!authStore.ready) {
-    await until(authStore.ready).toBe(true)
+    await until(() => authStore.ready).toBe(true)
   }
 
   // check if logged in
-  if (!authStore.profile) {
+  if (!authStore.rawProfile) {
     return navigateTo(PAGES.auth.url)
   }
 
   // check if user has required role
   if (requiredRoles && requiredRoles.length > 0) {
-    if (!authStore.profile.role || !requiredRoles.includes(authStore.profile.role)) {
+    if (!authStore.rawProfile.role || !requiredRoles.includes(authStore.rawProfile.role)) {
       throw createError({ statusCode: 403, statusMessage: UI_TEXT.forbidden, fatal: true })
     }
   }

@@ -34,6 +34,4 @@ async function onSubmit(event: FormSubmitEvent<ChangeEmailSchema>) {
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.sendLink" :loading />
   </UForm>
-
-  <AuthLogoutButton />
 </template>

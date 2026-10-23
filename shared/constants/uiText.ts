@@ -12,6 +12,7 @@ export const UI_TEXT = {
   login: 'Login',
   logout: 'Logout',
   password: 'Password',
+  passwordCurrent: 'Current Password',
   profile: 'Profile',
   redirecting: 'Redirecting...',
   register: 'Register',

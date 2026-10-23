@@ -1,6 +1,7 @@
 import { PAGES } from '#shared/constants'
 import type {
   ChangeEmailPayload,
+  ChangePasswordPayload,
   ConfirmEmailPayload,
   ConfirmPayload,
   ForgotPasswordPayload,
@@ -92,6 +93,21 @@ export const useAuth = () => {
     })
   }
 
+  async function changePassword(payload: ChangePasswordPayload) {
+    return withLoading(loading, async () => {
+      const email = useSupabaseUser().value?.email as string
+
+      const { error } = await supabase.auth.signInWithPassword({
+        ...payload,
+        email
+      })
+
+      if (error) throw { statusMessage: error.message }
+
+      return await forgotPassword({ email })
+    })
+  }
+
   /* Return */
   return {
     loading,
@@ -102,6 +118,7 @@ export const useAuth = () => {
     forgotPassword,
     resetPassword,
     changeEmail,
-    confirmEmail
+    confirmEmail,
+    changePassword
   }
 }

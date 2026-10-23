@@ -1,5 +1,5 @@
 import { PAGES, SUCCESS_MESSAGE } from '#shared/constants'
-import { forgotPasswordSchema } from '#shared/schemas/forgot-password.schema'
+import { forgotPasswordSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {

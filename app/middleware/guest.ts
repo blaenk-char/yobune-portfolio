@@ -2,7 +2,7 @@ export default defineNuxtRouteMiddleware(() => {
   const authStore = useAuthStore()
 
   // check if loggdin
-  if (authStore.profile) {
+  if (authStore.rawProfile) {
     return navigateTo('/')
   }
 })
