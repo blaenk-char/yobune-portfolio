@@ -30,7 +30,13 @@ function onImageLoad(e: Event) {
     @after:leave="close"
   >
     <template #content>
-      <img :src="image" :style="imgStyle" class="block max-w-[85vw]" @load="onImageLoad" />
+      <img
+        :src="image"
+        alt="Enlarged artwork"
+        :style="imgStyle"
+        class="block max-w-[85vw]"
+        @load="onImageLoad"
+      />
     </template>
   </UModal>
 </template>

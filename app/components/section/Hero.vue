@@ -6,7 +6,7 @@ import { DialogId, HERO } from '#shared/constants'
 <template>
   <div class="relative">
     <!-- Hero Image -->
-    <UiImage class="w-full rounded-4xl! min-h-42 object-cover" :src="HERO" />
+    <UiImage class="w-full rounded-4xl! min-h-42 object-cover" :src="HERO" loading="eager" />
 
     <!-- Dialogs -->
     <LazyUiDialog :id="DialogId.Intro" />

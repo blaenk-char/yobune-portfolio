@@ -36,7 +36,13 @@ watch(isActive, (active) => {
     >
       <div class="flex items-center gap-4 h-28 sm:h-24">
         <!-- Image -->
-        <img :src="DIALOG_CONFIG.image" draggable="false" class="rounded-xl w-16 h-16" />
+        <img
+          :src="DIALOG_CONFIG.image"
+          alt="Pinky"
+          loading="lazy"
+          draggable="false"
+          class="rounded-xl w-16 h-16"
+        />
         <!-- Text -->
         <p>{{ output }}</p>
       </div>

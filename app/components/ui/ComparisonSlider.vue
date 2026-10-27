@@ -57,11 +57,19 @@ useEventListener('touchend', stopDrag)
     @touchstart.passive="startDragTouch"
   >
     <!-- Base Image (Right) -->
-    <img :src="imageB" draggable="false" class="absolute inset-0 w-full h-full object-cover" />
+    <img
+      :src="imageB"
+      alt="High quality artwork"
+      loading="lazy"
+      draggable="false"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
 
     <!-- Overlay Image (Left) -->
     <img
       :src="imageA"
+      alt="Low quality artwork"
+      loading="lazy"
       draggable="false"
       class="absolute inset-0 w-full h-full object-cover"
       :style="{ clipPath: `inset(0 ${100 - pos}% 0 0)` }"
