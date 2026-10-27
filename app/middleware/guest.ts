@@ -13,4 +13,3 @@ export default defineNuxtRouteMiddleware(async () => {
     return navigateTo(PAGES.home.url)
   }
 })
-

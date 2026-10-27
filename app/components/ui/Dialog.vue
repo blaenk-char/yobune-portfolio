@@ -18,11 +18,15 @@ const isActive = computed<boolean>(
 )
 
 /* Watches */
-watch(isActive, (active) => {
-  if (!active) return
-  dialogStore.onTypingStart()
-  start(() => dialogStore.onTypingDone())
-})
+watch(
+  isActive,
+  (active) => {
+    if (!active) return
+    dialogStore.onTypingStart()
+    start(() => dialogStore.onTypingDone())
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
