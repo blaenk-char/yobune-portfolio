@@ -32,7 +32,9 @@ definePageMeta({
       <ProfilePassword v-if="id === PROFILE_SECTIONS.password" />
 
       <!-- Logout -->
-      <ProfileLogout v-if="id === PROFILE_SECTIONS.logout" />
+      <UiCenterDiv v-if="id === PROFILE_SECTIONS.logout">
+        <AuthLogoutButton />
+      </UiCenterDiv>
     </template>
   </UPage>
 </template>
