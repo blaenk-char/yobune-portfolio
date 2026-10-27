@@ -1,8 +1,11 @@
 export const UI_TEXT = {
   allRightsReserved: 'All rights reserved.',
+  cancel: 'Cancel',
   confirm: 'Confirm',
   contact: 'Contact',
   createdBy: 'Created by',
+  deleteAccount: 'Delete Account',
+  deleteAccountConfirm: 'Are you sure you want to permanently delete your account?',
   email: 'Email',
   emailNew: 'New email',
   emailUpdate: 'Update Email',

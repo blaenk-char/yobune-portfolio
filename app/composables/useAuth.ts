@@ -112,6 +112,23 @@ export const useAuth = () => {
     })
   }
 
+  async function deleteAccount() {
+    return withLoading(loading, async () => {
+      const {
+        data: { session }
+      } = await supabase.auth.getSession()
+
+      const data = await $fetch<MessageResponse>('/api/profile/delete', {
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+        method: 'DELETE'
+      })
+
+      await logout()
+
+      return data
+    })
+  }
+
   /* Return */
   return {
     loading,
@@ -123,6 +140,7 @@ export const useAuth = () => {
     resetPassword,
     changeEmail,
     confirmEmail,
-    changePassword
+    changePassword,
+    deleteAccount
   }
 }

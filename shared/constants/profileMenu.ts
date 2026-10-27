@@ -6,7 +6,8 @@ export const PROFILE_SECTIONS = {
   username: 'username',
   email: 'email',
   password: 'password',
-  logout: 'logout'
+  logout: 'logout',
+  deleteAccount: 'delete-account'
 }
 
 export const PROFILE_MENU: NavigationMenuItem[] = [
@@ -35,6 +36,13 @@ export const PROFILE_MENU: NavigationMenuItem[] = [
     id: PROFILE_SECTIONS.logout,
     label: UI_TEXT.logout,
     to: `${PAGES.profile.url}#${PROFILE_SECTIONS.logout}`,
+    target: '_self',
+    active: false
+  },
+  {
+    id: PROFILE_SECTIONS.deleteAccount,
+    label: UI_TEXT.deleteAccount,
+    to: `${PAGES.profile.url}#${PROFILE_SECTIONS.deleteAccount}`,
     target: '_self',
     active: false
   }

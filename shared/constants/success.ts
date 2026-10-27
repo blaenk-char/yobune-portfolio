@@ -6,5 +6,6 @@ export const SUCCESS_MESSAGE = {
   changeEmail: 'Check your new email to confirm the change.',
   updatePassword: 'Password updated successfully.',
   emailUpdate: 'Email updated successfully.',
-  usernameUpdated: 'Username updated successfully.'
+  usernameUpdated: 'Username updated successfully.',
+  accountDeleted: 'Your account has been deleted.'
 }

@@ -35,6 +35,9 @@ definePageMeta({
       <UiCenterDiv v-if="id === PROFILE_SECTIONS.logout">
         <AuthLogoutButton />
       </UiCenterDiv>
+
+      <!-- Delete Account -->
+      <ProfileDelete v-if="id === PROFILE_SECTIONS.deleteAccount" />
     </template>
   </UPage>
 </template>
