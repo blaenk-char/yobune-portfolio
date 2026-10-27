@@ -1,4 +1,4 @@
-import type { MessageResponse, Profile, UsernamePayload } from '~~/shared/types'
+import type { MessageResponse, Profile, UsernamePayload } from '#shared/types'
 
 export const useProfile = () => {
   /* Constants */

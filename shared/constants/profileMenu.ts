@@ -1,5 +1,5 @@
-import { UI_TEXT } from '#shared/constants/uiText'
 import type { NavigationMenuItem } from '@nuxt/ui'
+import { UI_TEXT } from './uiText'
 
 export const PROFILE_SECTIONS = {
   username: 'username',

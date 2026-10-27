@@ -2,8 +2,8 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { UI_TEXT } from '#shared/constants'
+import { changePasswordSchema, type ChangePasswordSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { changePasswordSchema, type ChangePasswordSchema } from '~~/shared/schemas'
 
 /* Constants */
 const { loading, changePassword } = useAuth()

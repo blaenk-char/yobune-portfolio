@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { PROFILE_MENU, PROFILE_SECTIONS } from '~~/shared/constants'
+import { PROFILE_MENU, PROFILE_SECTIONS } from '#shared/constants'
 
 /* Page */
 definePageMeta({

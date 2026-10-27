@@ -2,7 +2,7 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import type { AuthError } from '@supabase/supabase-js'
-import { ERROR_MESSAGE, PAGES, SUCCESS_MESSAGE, UI_TEXT } from '~~/shared/constants'
+import { ERROR_MESSAGE, PAGES, SUCCESS_MESSAGE, UI_TEXT } from '#shared/constants'
 
 /* Constants */
 const { loading, confirmEmail } = useAuth()
