@@ -1,4 +1,5 @@
 export const UI_TEXT = {
+  allRightsReserved: 'All rights reserved.',
   confirm: 'Confirm',
   contact: 'Contact',
   createdBy: 'Created by',
@@ -11,6 +12,9 @@ export const UI_TEXT = {
   forgotPassword: 'Forgot password?',
   login: 'Login',
   logout: 'Logout',
+  nsfwBlocked: 'Adult content hidden',
+  nsfwMode: 'NSFW',
+  nsfwReveal: 'Reveal',
   password: 'Password',
   passwordCurrent: 'Current Password',
   profile: 'Profile',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DialogId, NSFW_CONFIG, NSFW_IMAGES } from '#shared/constants'
+import { DialogId, NSFW_IMAGES, UI_TEXT } from '#shared/constants'
 
 /* Constants */
 const settingsStore = useSettingsStore()
@@ -27,9 +27,9 @@ function scroll(direction: 'left' | 'right') {
         class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3"
       >
         <UIcon name="i-lucide-lock" class="size-10 text-white/80" />
-        <p class="text-white/70 font-medium">{{ NSFW_CONFIG.blocked }}</p>
+        <p class="text-white/70 font-medium">{{ UI_TEXT.nsfwBlocked }}</p>
         <UButton
-          :label="NSFW_CONFIG.reveal"
+          :label="UI_TEXT.nsfwReveal"
           variant="subtle"
           color="neutral"
           @click="settingsStore.nsfw = true"

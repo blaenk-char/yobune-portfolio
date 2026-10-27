@@ -24,7 +24,9 @@ import { FOOTER_CONFIG, SOCIALS, UI_TEXT } from '#shared/constants'
     <!-- Banner -->
     <template #bottom>
       <!-- Legal -->
-      <span>© {{ new Date().getFullYear() }} {{ FOOTER_CONFIG.legal }}. All rights reserved.</span>
+      <span>
+        © {{ new Date().getFullYear() }} {{ FOOTER_CONFIG.legal }}. {{ UI_TEXT.allRightsReserved }}
+      </span>
       <!-- Divider -->
       <span class="hidden sm:inline-block">•</span>
       <!-- Credit -->

@@ -1,15 +1,9 @@
 type NsfwConfig = {
   default: boolean
-  label: string
-  blocked: string
-  reveal: string
 }
 
 export const NSFW_CONFIG: NsfwConfig = {
-  default: false,
-  label: 'NSFW Mode',
-  blocked: 'Adult content hidden',
-  reveal: 'Reveal'
+  default: false
 }
 
 export const NSFW_IMAGES: string[] = [

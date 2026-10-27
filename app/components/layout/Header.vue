@@ -1,14 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import {
-  CURSOR_CONFIG,
-  DIALOG_CONFIG,
-  NSFW_CONFIG,
-  PAGES,
-  SOCIALS,
-  TITLES,
-  UI_TEXT
-} from '#shared/constants'
+import { DIALOG_CONFIG, CURSOR_CONFIG, PAGES, SOCIALS, TITLES, UI_TEXT } from '#shared/constants'
 
 /* Constants */
 const settingsStore = useSettingsStore()
@@ -52,7 +44,7 @@ const cursorLabel = computed(() =>
       </UButton>
 
       <!-- NSFW Switch -->
-      <USwitch v-model="settingsStore.nsfw" :label="NSFW_CONFIG.label" :class="showSmClass" />
+      <USwitch v-model="settingsStore.nsfw" :label="UI_TEXT.nsfwMode" :class="showSmClass" />
 
       <!-- Profile -->
       <a v-if="authStore.profile" :href="PAGES.profile.url" :class="showSmClass">
@@ -93,7 +85,7 @@ const cursorLabel = computed(() =>
           </UButton>
 
           <!-- NSFW Switch -->
-          <USwitch v-model="settingsStore.nsfw" :label="NSFW_CONFIG.label" />
+          <USwitch v-model="settingsStore.nsfw" :label="UI_TEXT.nsfwMode" />
         </div>
       </div>
     </template>
