@@ -58,14 +58,14 @@ const cursorLabel = computed(() =>
       />
 
       <!-- Profile -->
-      <a v-if="authStore.profile" :href="PAGES.profile.url" :class="showSmClass">
+      <NuxtLink v-if="authStore.profile" :to="PAGES.profile.url" :class="showSmClass">
         <UAvatar :text="authStore.profile.username.at(0)?.toUpperCase()" />
-      </a>
+      </NuxtLink>
 
       <!-- Auth -->
-      <a v-else :href="PAGES.auth.url" :class="showSmClass">
-        <UButton>{{ UI_TEXT.login }}</UButton>
-      </a>
+      <UButton v-else :to="PAGES.auth.url" :class="showSmClass">
+        {{ UI_TEXT.login }}
+      </UButton>
     </template>
 
     <!-- Drawer Content -->
@@ -79,11 +79,16 @@ const cursorLabel = computed(() =>
           <USeparator class="my-2" />
 
           <!-- Profile / Auth -->
-          <a :href="authStore.profile ? PAGES.profile.url : PAGES.auth.url">
-            <UButton variant="ghost" size="md" color="neutral" block class="justify-start">
-              {{ authStore.profile ? UI_TEXT.profile : `${UI_TEXT.login} / ${UI_TEXT.register}` }}
-            </UButton>
-          </a>
+          <UButton
+            :to="authStore.profile ? PAGES.profile.url : PAGES.auth.url"
+            variant="ghost"
+            size="md"
+            color="neutral"
+            block
+            class="justify-start"
+          >
+            {{ authStore.profile ? UI_TEXT.profile : `${UI_TEXT.login} / ${UI_TEXT.register}` }}
+          </UButton>
         </div>
 
         <USeparator />
