@@ -25,7 +25,7 @@ export const UI_TEXT = {
   showLess: 'Show Less',
   showMore: 'Show More',
   success: 'Success',
-  titleConfirm: 'Confirm you profile',
+  titleConfirm: 'Confirm your profile',
   titleForgotPassword: 'Send a reset link',
   username: 'Username',
   usernameUpdate: 'Update Username'

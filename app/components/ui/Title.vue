@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 
 /* Functions */
-const titleCLass = computed(() => {
+const titleClass = computed(() => {
   switch (props.variant) {
     case 'primary':
       return 'text-2xl sm:text-3xl mt-20'
@@ -20,7 +20,7 @@ const titleCLass = computed(() => {
 </script>
 
 <template>
-  <div :id class="font-bold" :class="titleCLass">
+  <div :id class="font-bold" :class="titleClass">
     {{ title }}
     <USeparator v-if="variant === 'primary'" class="my-3" />
   </div>

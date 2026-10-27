@@ -26,7 +26,7 @@ definePageMeta({
 
     <!-- Animations -->
     <UiReveal>
-      <LazyUiTitle :title="TITLES.ohterAnimations" variant="primary" />
+      <LazyUiTitle :title="TITLES.otherAnimations" variant="primary" />
 
       <LazySectionAnimation />
     </UiReveal>

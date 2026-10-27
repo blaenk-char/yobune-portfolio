@@ -1,7 +1,7 @@
 export const TITLES = {
   main: 'YobuneArt',
   animatedBanners: 'Animated Banners',
-  ohterAnimations: 'Other Animations',
+  otherAnimations: 'Other Animations',
   characterSheets: 'Character Sheets',
   otherImages: 'Other Images',
   nsfwGallery: 'NSFW Section',
