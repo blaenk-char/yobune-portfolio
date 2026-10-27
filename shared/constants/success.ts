@@ -3,6 +3,7 @@ export const SUCCESS_MESSAGE = {
   register: 'Check your email to confirm your account.',
   resetPassword: 'If that email exists you will receive a reset link shortly.',
   changePassword: 'If that email exists you will receive a reset link shortly.',
+  changeEmail: 'Check your new email to confirm the change.',
   updatePassword: 'Password updated successfully.',
   emailUpdate: 'Email updated successfully.',
   usernameUpdated: 'Username updated successfully.'

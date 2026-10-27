@@ -36,6 +36,6 @@ export default defineEventHandler(async (event) => {
   }
 
   return {
-    message: SUCCESS_MESSAGE.changePassword
+    message: SUCCESS_MESSAGE.changeEmail
   }
 })
