@@ -94,6 +94,13 @@ export default defineAppConfig({
       slots: {
         title: 'text-3xl sm:text-5xl'
       }
+    },
+
+    // Error
+    error: {
+      slots: {
+        statusCode: 'text-4xl font-bold'
+      }
     }
   }
 })

@@ -5,7 +5,7 @@ import { UI_TEXT } from '#shared/constants'
 /* Page */
 definePageMeta({
   layout: 'public',
-  middleware: 'guest'
+  middleware: ['guest', 'token']
 })
 </script>
 

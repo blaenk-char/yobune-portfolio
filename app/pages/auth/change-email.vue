@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /* Page */
 definePageMeta({
-  layout: 'public'
+  layout: 'public',
+  middleware: 'token'
 })
 </script>
 
