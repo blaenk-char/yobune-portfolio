@@ -1,10 +1,10 @@
 import { useSupabaseAdmin } from '#server/utils/supabaseAdmin'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
-import { resetPasswordPayloadSchema } from '#shared/schemas'
+import { resetPasswordSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
-  const { password, token } = await parseBody(event, resetPasswordPayloadSchema)
+  const { password, token } = await parseBody(event, resetPasswordSchema)
 
   const supabase = await serverSupabaseClient(event)
 

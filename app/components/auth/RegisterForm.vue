@@ -11,7 +11,8 @@ const { loading, register } = useAuth()
 /* Refs */
 const state = reactive<Partial<RegisterSchema>>({
   email: undefined,
-  password: undefined
+  password: undefined,
+  confirmPassword: undefined
 })
 
 /* Functions */
@@ -35,6 +36,10 @@ async function onSubmit(event: FormSubmitEvent<RegisterSchema>) {
     <!-- Password -->
     <UFormField :label="UI_TEXT.password" name="password">
       <AuthPasswordInput v-model="state.password" />
+    </UFormField>
+    <!-- Confirm Password -->
+    <UFormField :label="UI_TEXT.passwordConfirm" name="confirmPassword">
+      <AuthPasswordInput v-model="state.confirmPassword" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.register" :loading />

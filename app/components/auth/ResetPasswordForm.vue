@@ -12,13 +12,15 @@ const router = useRouter()
 
 /* Refs */
 const state = reactive<Partial<ResetPasswordSchema>>({
-  password: undefined
+  password: undefined,
+  confirmPassword: undefined,
+  token: route.query.token as string
 })
 
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<ResetPasswordSchema>) {
   try {
-    const data = await resetPassword({ ...event.data, token: route.query.token as string })
+    const data = await resetPassword(event.data)
     addToast(data.message, 'success')
     router.push(PAGES.auth.url)
   } catch (error: unknown) {
@@ -33,6 +35,10 @@ async function onSubmit(event: FormSubmitEvent<ResetPasswordSchema>) {
     <!-- Password -->
     <UFormField :label="UI_TEXT.password" name="password">
       <AuthPasswordInput v-model="state.password" />
+    </UFormField>
+    <!-- Confirm Password -->
+    <UFormField :label="UI_TEXT.passwordConfirm" name="confirmPassword">
+      <AuthPasswordInput v-model="state.confirmPassword" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.resetPassword" :loading />

@@ -1,9 +1,9 @@
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
-import { confirmPayloadSchema } from '#shared/schemas'
+import { confirmSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
-  const { username, token } = await parseBody(event, confirmPayloadSchema)
+  const { username, token } = await parseBody(event, confirmSchema)
 
   // check if username is unique
   const existing = await prisma.profiles.findUnique({ where: { username } })

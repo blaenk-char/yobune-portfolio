@@ -2,10 +2,7 @@ import z from 'zod'
 import { primitives } from './primitives.schema'
 
 export const confirmSchema = z.object({
-  username: primitives.username
-})
-
-export const confirmPayloadSchema = confirmSchema.extend({
+  username: primitives.username,
   token: primitives.string.token
 })
 

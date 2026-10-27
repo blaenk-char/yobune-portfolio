@@ -16,6 +16,7 @@ export const UI_TEXT = {
   nsfwMode: 'NSFW',
   nsfwReveal: 'Reveal',
   password: 'Password',
+  passwordConfirm: 'Confirm Password',
   passwordCurrent: 'Current Password',
   profile: 'Profile',
   redirecting: 'Redirecting...',

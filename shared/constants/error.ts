@@ -8,6 +8,7 @@ export const ERROR_MESSAGE = {
   password: {
     min: 'Password must be at least 8 characters',
     max: 'Password must be less than 128 characters',
+    mismatch: 'Passwords do not match',
     regex: {
       lowercase: 'Password must contain lowercase letters',
       number: 'Password must contain numbers',

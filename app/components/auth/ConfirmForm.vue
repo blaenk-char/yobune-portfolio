@@ -12,13 +12,14 @@ const router = useRouter()
 
 /* Refs */
 const state = reactive<Partial<ConfirmSchema>>({
-  username: undefined
+  username: undefined,
+  token: route.query.token as string
 })
 
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<ConfirmSchema>) {
   try {
-    const data = await confirm({ ...event.data, token: route.query.token as string })
+    const data = await confirm(event.data)
     addToast(data.message, 'success')
     router.push(PAGES.home.url)
   } catch (error: unknown) {

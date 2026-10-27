@@ -6,6 +6,7 @@ export interface LoginPayload {
 export interface RegisterPayload {
   email: string
   password: string
+  confirmPassword: string
 }
 
 export interface ConfirmPayload {
@@ -19,6 +20,7 @@ export interface ForgotPasswordPayload {
 
 export interface ResetPasswordPayload {
   password: string
+  confirmPassword: string
   token: string
 }
 
