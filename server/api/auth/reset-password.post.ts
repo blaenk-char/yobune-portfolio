@@ -5,17 +5,7 @@ import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const parsed = resetPasswordSchema.safeParse(body)
-
-  // validate user input
-  if (!parsed.success) {
-    throw createError({
-      statusCode: 422,
-      statusMessage: parsed.error.issues[0]?.message
-    })
-  }
-
-  const { password } = parsed.data
+  const { password } = await parseBody(event, resetPasswordSchema)
 
   const supabase = await serverSupabaseClient(event)
 

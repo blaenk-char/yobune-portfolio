@@ -2,19 +2,8 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
 import { usernameSchema } from '#shared/schemas'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-  const parsed = usernameSchema.safeParse(body)
   const { profile } = await requireAuth(event)
-
-  // validate user input
-  if (!parsed.success) {
-    throw createError({
-      statusCode: 422,
-      statusMessage: parsed.error.issues[0]?.message
-    })
-  }
-
-  const { username } = parsed.data
+  const { username } = await parseBody(event, usernameSchema)
 
   // check if username is unique
   const existing = await prisma.profiles.findFirst({

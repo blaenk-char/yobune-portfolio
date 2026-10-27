@@ -4,17 +4,7 @@ import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const parsed = confirmSchema.safeParse(body)
-
-  // validate user input
-  if (!parsed.success) {
-    throw createError({
-      statusCode: 422,
-      statusMessage: parsed.error.issues[0]?.message
-    })
-  }
-
-  const { username } = parsed.data
+  const { username } = await parseBody(event, confirmSchema)
 
   // check if username is unique
   const existing = await prisma.profiles.findUnique({ where: { username } })
