@@ -11,7 +11,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   // check if logged in
   if (!authStore.profile) {
-    return navigateTo(PAGES.auth.url)
+    return navigateTo({
+      path: PAGES.auth.url,
+      query: { redirect: to.fullPath }
+    })
   }
 
   // check if user has required role

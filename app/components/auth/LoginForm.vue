@@ -7,6 +7,7 @@ import type { AuthError } from '@supabase/supabase-js'
 
 /* Constants */
 const { loading, login } = useAuth()
+const route = useRoute()
 const router = useRouter()
 
 /* Refs */
@@ -19,7 +20,8 @@ const state = reactive<Partial<LoginSchema>>({
 async function onSubmit(event: FormSubmitEvent<LoginSchema>) {
   try {
     await login(event.data)
-    router.push(PAGES.home.url)
+    const redirect = route.query.redirect as string | undefined
+    router.push(redirect?.startsWith('/') ? redirect : PAGES.home.url)
   } catch (error: unknown) {
     addToast((error as AuthError).message, 'error')
   }
