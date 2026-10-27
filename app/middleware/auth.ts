@@ -1,8 +1,6 @@
 import { PAGES, UI_TEXT } from '#shared/constants'
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  if (import.meta.server) return
-
   const authStore = useAuthStore()
   const requiredRoles = to.meta.roles as UserRole[] | undefined
 
@@ -12,13 +10,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   // check if logged in
-  if (!authStore.rawProfile) {
+  if (!authStore.profile) {
     return navigateTo(PAGES.auth.url)
   }
 
   // check if user has required role
   if (requiredRoles && requiredRoles.length > 0) {
-    if (!authStore.rawProfile.role || !requiredRoles.includes(authStore.rawProfile.role)) {
+    if (!authStore.profile.role || !requiredRoles.includes(authStore.profile.role)) {
       throw createError({ statusCode: 403, statusMessage: UI_TEXT.forbidden, fatal: true })
     }
   }

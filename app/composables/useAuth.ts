@@ -16,6 +16,8 @@ import type {
 export const useAuth = () => {
   /* Constants */
   const supabase = useSupabaseClient()
+  const authStore = useAuthStore()
+  const { fetchProfile } = useProfile()
 
   /* Refs */
   const loading = ref<boolean>(false)
@@ -25,12 +27,14 @@ export const useAuth = () => {
     return withLoading(loading, async () => {
       const { error } = await supabase.auth.signInWithPassword(payload)
       if (error) throw error
+      await fetchProfile()
     })
   }
 
   async function logout() {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
+    authStore.clear()
     await navigateTo(PAGES.auth.url)
   }
 
