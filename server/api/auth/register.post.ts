@@ -3,6 +3,7 @@ import { registerSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
+  rateLimit(event)
   const { email, password } = await parseBody(event, registerSchema)
 
   const supabase = await serverSupabaseClient(event)

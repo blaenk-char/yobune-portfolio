@@ -35,5 +35,6 @@ export const ERROR_MESSAGE = {
     email: 'Email is required',
     password: 'Password is required'
   },
+  rateLimit: 'Too many requests, please try again later',
   server: 'Something went wrong'
 }

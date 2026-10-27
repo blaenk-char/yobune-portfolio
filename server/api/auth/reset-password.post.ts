@@ -4,6 +4,7 @@ import { resetPasswordSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
+  rateLimit(event)
   const { password, token } = await parseBody(event, resetPasswordSchema)
 
   const supabase = await serverSupabaseClient(event)

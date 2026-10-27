@@ -3,6 +3,7 @@ import { confirmSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
+  rateLimit(event)
   const { username, token } = await parseBody(event, confirmSchema)
 
   // check if username is unique

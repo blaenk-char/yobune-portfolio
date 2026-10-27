@@ -3,6 +3,7 @@ import { forgotPasswordSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
+  rateLimit(event)
   const { email } = await parseBody(event, forgotPasswordSchema)
 
   const supabase = await serverSupabaseClient(event)
