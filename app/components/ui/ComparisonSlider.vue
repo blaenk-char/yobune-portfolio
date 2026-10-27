@@ -40,12 +40,11 @@ function stopDrag() {
   dragging.value = false
 }
 
-onMounted(() => {
-  window.addEventListener('mousemove', onMove)
-  window.addEventListener('touchmove', onMoveTouch, { passive: true })
-  window.addEventListener('mouseup', stopDrag)
-  window.addEventListener('touchend', stopDrag)
-})
+/* Event Listeners */
+useEventListener('mousemove', onMove)
+useEventListener('touchmove', onMoveTouch, { passive: true })
+useEventListener('mouseup', stopDrag)
+useEventListener('touchend', stopDrag)
 </script>
 
 <template>

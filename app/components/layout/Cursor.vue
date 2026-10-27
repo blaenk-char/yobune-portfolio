@@ -8,7 +8,10 @@ const mousePosition = ref<{
   y: number
 }>()
 const mouseState = ref<'idle' | 'click' | 'move'>('idle')
-const timer = ref()
+const timer = ref<ReturnType<typeof setTimeout>>()
+
+/* Computeds */
+const isActive = computed(() => settingsStore.cursor && settingsStore.showCursor)
 
 /* Trail */
 const canvas = ref<HTMLCanvasElement>()
@@ -21,8 +24,7 @@ let particles: {
   size: number
 }[] = []
 let hue = 0
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-let rafId: number
+let rafId: number | null = null
 
 /* Functions */
 function resizeCanvas() {
@@ -36,8 +38,18 @@ function spawnParticle(x: number, y: number) {
   hue = (hue + 8) % 360
 }
 
+function stopLoop() {
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId)
+    rafId = null
+  }
+}
+
 function drawLoop() {
-  if (!ctx || !canvas.value) return
+  if (!ctx || !canvas.value || !isActive.value) {
+    rafId = null
+    return
+  }
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height)
 
   particles = particles.filter((p) => p.alpha > 0.01)
@@ -54,47 +66,58 @@ function drawLoop() {
   rafId = requestAnimationFrame(drawLoop)
 }
 
-/* Lifecycle Hooks */
-onMounted(() => {
-  // canvas setup
-  if (canvas.value) {
-    ctx = canvas.value.getContext('2d')
-    resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
-    drawLoop()
+function setupCanvas() {
+  if (!canvas.value) return
+  ctx = canvas.value.getContext('2d')
+  resizeCanvas()
+  stopLoop()
+  drawLoop()
+}
+
+/* Watches */
+watch(canvas, (el) => {
+  if (el) {
+    setupCanvas()
+  } else {
+    stopLoop()
+    ctx = null
+    particles = []
   }
+})
 
-  // mouse events
-  window.addEventListener('mousemove', (event: MouseEvent) => {
-    if (Math.abs(event.movementX) > 1 || Math.abs(event.movementY) > 1) {
-      mouseState.value = 'move'
-      spawnParticle(event.clientX, event.clientY)
-    }
-    mousePosition.value = { x: event.clientX, y: event.clientY }
-    clearTimeout(timer.value)
-    timer.value = setTimeout(() => {
-      mouseState.value = 'idle'
-    }, 50)
-  })
-
-  window.addEventListener('mousedown', () => {
-    mouseState.value = 'click'
-  })
-  window.addEventListener('mouseup', () => {
+/* Event Listeners */
+useEventListener('resize', resizeCanvas)
+useEventListener('mousemove', (event: MouseEvent) => {
+  if (!isActive.value) return
+  if (Math.abs(event.movementX) > 1 || Math.abs(event.movementY) > 1) {
+    mouseState.value = 'move'
+    spawnParticle(event.clientX, event.clientY)
+  }
+  mousePosition.value = { x: event.clientX, y: event.clientY }
+  clearTimeout(timer.value)
+  timer.value = setTimeout(() => {
     mouseState.value = 'idle'
-  })
+  }, 50)
+})
+useEventListener('mousedown', () => {
+  if (isActive.value) mouseState.value = 'click'
+})
+useEventListener('mouseup', () => {
+  if (isActive.value) mouseState.value = 'idle'
+})
+
+/* Lifecycle Hooks */
+onBeforeUnmount(() => {
+  stopLoop()
+  clearTimeout(timer.value)
 })
 </script>
 
 <template>
   <Teleport to="body">
-    <canvas
-      v-if="settingsStore.cursor && settingsStore.showCursor"
-      ref="canvas"
-      class="fixed inset-0 z-9998 pointer-events-none"
-    />
+    <canvas v-if="isActive" ref="canvas" class="fixed inset-0 z-9998 pointer-events-none" />
     <img
-      v-if="settingsStore.cursor && settingsStore.showCursor && mousePosition"
+      v-if="isActive && mousePosition"
       :src="`/cursors/${mouseState}.ico`"
       class="fixed z-9999 pointer-events-none -translate-y-1/2 -translate-x-1/2"
       :draggable="false"
