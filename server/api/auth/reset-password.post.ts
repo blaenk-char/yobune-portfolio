@@ -1,17 +1,16 @@
 import { useSupabaseAdmin } from '#server/utils/supabaseAdmin'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
-import { resetPasswordSchema } from '#shared/schemas'
+import { resetPasswordPayloadSchema } from '#shared/schemas'
 import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-  const { password } = await parseBody(event, resetPasswordSchema)
+  const { password, token } = await parseBody(event, resetPasswordPayloadSchema)
 
   const supabase = await serverSupabaseClient(event)
 
   // get user by token
   const { data, error } = await supabase.auth.verifyOtp({
-    token_hash: body.token,
+    token_hash: token,
     type: 'recovery'
   })
   console.log('ERROR', error)

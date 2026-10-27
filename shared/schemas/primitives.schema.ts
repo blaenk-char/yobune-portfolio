@@ -19,7 +19,8 @@ export const primitives = {
     .regex(/^[a-zA-Z0-9_-]+$/, ERROR_MESSAGE.username.regex),
   string: {
     email: zString(ERROR_MESSAGE.required.email),
-    password: zString(ERROR_MESSAGE.required.password)
+    password: zString(ERROR_MESSAGE.required.password),
+    token: zString(ERROR_MESSAGE.auth.token)
   }
 }
 
