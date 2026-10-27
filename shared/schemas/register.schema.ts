@@ -14,3 +14,9 @@ export const registerSchema = z
   })
 
 export type RegisterSchema = z.output<typeof registerSchema>
+
+export const registerState: Partial<RegisterSchema> = {
+  email: undefined,
+  password: undefined,
+  confirmPassword: undefined
+}

@@ -2,23 +2,20 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { UI_TEXT } from '#shared/constants'
-import { registerSchema, type RegisterSchema } from '#shared/schemas'
+import { registerSchema, registerState, type RegisterSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
 const { loading, register } = useAuth()
 
 /* Refs */
-const state = reactive<Partial<RegisterSchema>>({
-  email: undefined,
-  password: undefined,
-  confirmPassword: undefined
-})
+const state = reactive({ ...registerState })
 
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<RegisterSchema>) {
   try {
     const data = await register(event.data)
+    Object.assign(state, registerState)
     addToast(data.message, 'success')
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')

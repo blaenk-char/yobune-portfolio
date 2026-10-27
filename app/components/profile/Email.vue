@@ -2,21 +2,20 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { UI_TEXT } from '#shared/constants'
-import { changeEmailSchema, type ChangeEmailSchema } from '#shared/schemas'
+import { changeEmailSchema, changeEmailState, type ChangeEmailSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
 const { loading, changeEmail } = useAuth()
 
 /* Refs */
-const state = reactive<Partial<ChangeEmailSchema>>({
-  email: undefined
-})
+const state = reactive({ ...changeEmailState })
 
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<ChangeEmailSchema>) {
   try {
     const data = await changeEmail(event.data)
+    Object.assign(state, changeEmailState)
     addToast(data.message, 'success')
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')

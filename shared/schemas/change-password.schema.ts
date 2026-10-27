@@ -6,3 +6,7 @@ export const changePasswordSchema = z.object({
 })
 
 export type ChangePasswordSchema = z.output<typeof changePasswordSchema>
+
+export const changePasswordState: Partial<ChangePasswordSchema> = {
+  password: undefined
+}

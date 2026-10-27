@@ -6,3 +6,7 @@ export const changeEmailSchema = z.object({
 })
 
 export type ChangeEmailSchema = z.output<typeof changeEmailSchema>
+
+export const changeEmailState: Partial<ChangeEmailSchema> = {
+  email: undefined
+}

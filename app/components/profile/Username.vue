@@ -2,7 +2,7 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { UI_TEXT } from '#shared/constants'
-import { usernameSchema, type UsernameSchema } from '#shared/schemas'
+import { usernameSchema, usernameState, type UsernameSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
@@ -10,7 +10,8 @@ const { loading, updateUsername } = useProfile()
 const authStore = useAuthStore()
 
 /* Refs */
-const state = reactive<Partial<UsernameSchema>>({
+const state = reactive({
+  ...usernameState,
   username: authStore.profile?.username
 })
 

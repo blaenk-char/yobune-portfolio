@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /* Imports */
 import { PAGES, UI_TEXT } from '#shared/constants'
-import { loginSchema, type LoginSchema } from '#shared/schemas'
+import { loginSchema, loginState, type LoginSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import type { AuthError } from '@supabase/supabase-js'
 
@@ -11,10 +11,7 @@ const route = useRoute()
 const router = useRouter()
 
 /* Refs */
-const state = reactive<Partial<LoginSchema>>({
-  email: undefined,
-  password: undefined
-})
+const state = reactive({ ...loginState })
 
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<LoginSchema>) {

@@ -2,7 +2,7 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { PAGES, UI_TEXT } from '#shared/constants'
-import { resetPasswordSchema, type ResetPasswordSchema } from '#shared/schemas'
+import { resetPasswordSchema, resetPasswordState, type ResetPasswordSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
@@ -11,9 +11,8 @@ const route = useRoute()
 const router = useRouter()
 
 /* Refs */
-const state = reactive<Partial<ResetPasswordSchema>>({
-  password: undefined,
-  confirmPassword: undefined,
+const state = reactive({
+  ...resetPasswordState,
   token: route.query.token as string
 })
 

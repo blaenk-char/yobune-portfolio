@@ -7,3 +7,8 @@ export const loginSchema = z.object({
 })
 
 export type LoginSchema = z.output<typeof loginSchema>
+
+export const loginState: Partial<LoginSchema> = {
+  email: undefined,
+  password: undefined
+}

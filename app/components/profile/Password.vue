@@ -2,21 +2,24 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { UI_TEXT } from '#shared/constants'
-import { changePasswordSchema, type ChangePasswordSchema } from '#shared/schemas'
+import {
+  changePasswordSchema,
+  changePasswordState,
+  type ChangePasswordSchema
+} from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
 const { loading, changePassword } = useAuth()
 
 /* Refs */
-const state = reactive<Partial<ChangePasswordPayload>>({
-  password: undefined
-})
+const state = reactive({ ...changePasswordState })
 
 /* Functions */
 async function onSubmit(event: FormSubmitEvent<ChangePasswordSchema>) {
   try {
     const data = await changePassword(event.data)
+    Object.assign(state, changePasswordState)
     addToast(data.message, 'success')
   } catch (error: unknown) {
     addToast((error as H3Error).statusMessage, 'error')

@@ -7,3 +7,8 @@ export const confirmSchema = z.object({
 })
 
 export type ConfirmSchema = z.output<typeof confirmSchema>
+
+export const confirmState: Partial<ConfirmSchema> = {
+  username: undefined,
+  token: undefined
+}

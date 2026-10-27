@@ -2,7 +2,7 @@
 /* Imports */
 import type { H3Error } from '#build/types/nitro-imports'
 import { PAGES, UI_TEXT } from '#shared/constants'
-import { confirmSchema, type ConfirmSchema } from '#shared/schemas'
+import { confirmSchema, confirmState, type ConfirmSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 /* Constants */
@@ -11,8 +11,8 @@ const route = useRoute()
 const router = useRouter()
 
 /* Refs */
-const state = reactive<Partial<ConfirmSchema>>({
-  username: undefined,
+const state = reactive({
+  ...confirmState,
   token: route.query.token as string
 })
 

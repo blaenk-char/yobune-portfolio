@@ -6,3 +6,7 @@ export const forgotPasswordSchema = z.object({
 })
 
 export type ForgotPasswordSchema = z.output<typeof forgotPasswordSchema>
+
+export const forgotPasswordState: Partial<ForgotPasswordSchema> = {
+  email: undefined
+}

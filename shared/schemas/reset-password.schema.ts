@@ -14,3 +14,9 @@ export const resetPasswordSchema = z
   })
 
 export type ResetPasswordSchema = z.output<typeof resetPasswordSchema>
+
+export const resetPasswordState: Partial<ResetPasswordSchema> = {
+  password: undefined,
+  confirmPassword: undefined,
+  token: undefined
+}

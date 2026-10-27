@@ -6,3 +6,7 @@ export const usernameSchema = z.object({
 })
 
 export type UsernameSchema = z.output<typeof usernameSchema>
+
+export const usernameState: Partial<UsernameSchema> = {
+  username: undefined
+}
