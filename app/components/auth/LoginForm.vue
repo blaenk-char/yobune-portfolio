@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { UI_TEXT } from '#shared/constants'
+import { PAGES, UI_TEXT } from '#shared/constants'
 import { loginSchema, type LoginSchema } from '#shared/schemas'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import type { AuthError } from '@supabase/supabase-js'
@@ -19,7 +19,7 @@ const state = reactive<Partial<LoginSchema>>({
 async function onSubmit(event: FormSubmitEvent<LoginSchema>) {
   try {
     await login(event.data)
-    router.push('/')
+    router.push(PAGES.home.url)
   } catch (error: unknown) {
     addToast((error as AuthError).message, 'error')
   }
