@@ -18,3 +18,4 @@ export const useAuthStore = defineStore('auth', () => {
     clear
   }
 })
+
