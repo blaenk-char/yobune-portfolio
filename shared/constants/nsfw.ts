@@ -1,9 +1,13 @@
+import { PAGES } from './pages'
+
 type NsfwConfig = {
   default: boolean
+  pages: string[]
 }
 
 export const NSFW_CONFIG: NsfwConfig = {
-  default: false
+  default: false,
+  pages: [PAGES.home.url]
 }
 
 export const NSFW_IMAGES: string[] = [

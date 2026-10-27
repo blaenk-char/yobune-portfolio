@@ -7,12 +7,15 @@ const props = defineProps<{ id: DialogId }>()
 
 /* Constants */
 const dialogStore = useDialogStore()
+const settingsStore = useSettingsStore()
 
 /* Variables */
 const scene = DIALOGS.find((scene) => scene.id === props.id)
 const text = ref<string>(scene?.dialog ?? '')
 const { output, start } = useTypewriter(text)
-const isActive = computed<boolean>(() => dialogStore.currentDialog?.id === props.id)
+const isActive = computed<boolean>(
+  () => settingsStore.showDialog && dialogStore.currentDialog?.id === props.id
+)
 
 /* Watches */
 watch(isActive, (active) => {

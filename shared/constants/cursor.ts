@@ -1,9 +1,12 @@
+import { PAGES } from './pages'
+
 type CursorConfig = {
   className: string
   storageKey: string
   default: boolean
   trueLabel: string
   falseLabel: string
+  pages: string[]
 }
 
 export const CURSOR_CONFIG: CursorConfig = {
@@ -11,5 +14,6 @@ export const CURSOR_CONFIG: CursorConfig = {
   storageKey: 'blaenk-fancy-cursor', // key for localstorage
   default: true,
   trueLabel: 'Cursor: Fancy',
-  falseLabel: 'Cursor: Boring'
+  falseLabel: 'Cursor: Boring',
+  pages: [PAGES.home.url]
 }

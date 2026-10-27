@@ -1,3 +1,5 @@
+import { PAGES } from './pages'
+
 export enum DialogId {
   Animations = 'animations',
   Banners = 'banners',
@@ -16,6 +18,7 @@ type DialogConfig = {
   resetLabel: string
   disableActionLabel: string
   defaultActionLabel: string
+  pages: string[]
 }
 
 export type DialogRecord = {
@@ -31,7 +34,8 @@ export const DIALOG_CONFIG: DialogConfig = {
   disableActionLabel: 'Turn off',
   speed: 15,
   image:
-    'https://storage.vgen.co/uploads/6688ae01-b0ab-494a-b95f-8debacc4d4d0/avatars/c994765a-609b-4db2-ad2a-fb476a540298.webp'
+    'https://storage.vgen.co/uploads/6688ae01-b0ab-494a-b95f-8debacc4d4d0/avatars/c994765a-609b-4db2-ad2a-fb476a540298.webp',
+  pages: [PAGES.home.url]
 }
 
 export const DIALOGS: DialogRecord[] = [

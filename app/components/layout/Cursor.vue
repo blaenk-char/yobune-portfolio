@@ -89,12 +89,12 @@ onMounted(() => {
 <template>
   <Teleport to="body">
     <canvas
-      v-if="settingsStore.cursor"
+      v-if="settingsStore.cursor && settingsStore.showCursor"
       ref="canvas"
       class="fixed inset-0 z-9998 pointer-events-none"
     />
     <img
-      v-if="settingsStore.cursor && mousePosition"
+      v-if="settingsStore.cursor && settingsStore.showCursor && mousePosition"
       :src="`/cursors/${mouseState}.ico`"
       class="fixed z-9999 pointer-events-none -translate-y-1/2 -translate-x-1/2"
       :draggable="false"

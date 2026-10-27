@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DIALOG_CONFIG, CURSOR_CONFIG, PAGES, SOCIALS, TITLES, UI_TEXT } from '#shared/constants'
+import { CURSOR_CONFIG, DIALOG_CONFIG, PAGES, SOCIALS, TITLES, UI_TEXT } from '#shared/constants'
 
 /* Constants */
 const settingsStore = useSettingsStore()
@@ -25,10 +25,11 @@ const cursorLabel = computed(() =>
     <!-- Right Side -->
     <template #right>
       <!-- Color Mode -->
-      <UColorModeButton />
+      <UColorModeButton :class="showSmClass" />
 
       <!-- Cursor Mode -->
       <UButton
+        v-if="settingsStore.showCursor"
         variant="ghost"
         size="md"
         color="neutral"
@@ -39,12 +40,22 @@ const cursorLabel = computed(() =>
       </UButton>
 
       <!-- Reset Dialog -->
-      <UButton size="md" class="text-nowrap" @click="reset">
+      <UButton
+        v-if="settingsStore.showDialog"
+        size="md"
+        :class="`${showSmClass} text-nowrap`"
+        @click="reset"
+      >
         {{ DIALOG_CONFIG.resetLabel }}
       </UButton>
 
       <!-- NSFW Switch -->
-      <USwitch v-model="settingsStore.nsfw" :label="UI_TEXT.nsfwMode" :class="showSmClass" />
+      <USwitch
+        v-if="settingsStore.showNsfw"
+        v-model="settingsStore.nsfw"
+        :label="UI_TEXT.nsfwMode"
+        :class="`${showSmClass} mx-2`"
+      />
 
       <!-- Profile -->
       <a v-if="authStore.profile" :href="PAGES.profile.url" :class="showSmClass">
@@ -78,15 +89,42 @@ const cursorLabel = computed(() =>
         <USeparator />
 
         <!-- Bottom -->
-        <div class="flex justify-evenly items-center mt-2">
+        <div class="grid grid-flow-col auto-cols-fr place-items-center gap-4 my-3">
+          <!-- Color Mode -->
+          <UColorModeButton size="xl" />
+
           <!-- Cursor Mode -->
-          <UButton variant="ghost" size="xl" color="neutral" @click="settingsStore.toggleCursor">
+          <UButton
+            v-if="settingsStore.showCursor"
+            variant="ghost"
+            size="xl"
+            color="neutral"
+            @click="settingsStore.toggleCursor"
+          >
             {{ cursorLabel }}
           </UButton>
 
           <!-- NSFW Switch -->
-          <USwitch v-model="settingsStore.nsfw" :label="UI_TEXT.nsfwMode" />
+          <USwitch
+            v-if="settingsStore.showNsfw"
+            v-model="settingsStore.nsfw"
+            :label="UI_TEXT.nsfwMode"
+          />
         </div>
+
+        <!-- Reset Dialog -->
+        <UButton
+          v-if="settingsStore.showDialog"
+          size="md"
+          block
+          class="text-nowrap mb-3"
+          @click="reset"
+        >
+          {{ DIALOG_CONFIG.resetLabel }}
+        </UButton>
+
+        <!-- Logout -->
+        <AuthLogoutButton v-if="authStore.profile" />
       </div>
     </template>
   </UHeader>
