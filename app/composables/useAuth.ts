@@ -76,12 +76,16 @@ export const useAuth = () => {
   }
 
   async function confirm(payload: ConfirmPayload) {
-    return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/v1/auth/confirm', {
+    return withLoading(loading, async () => {
+      const data = await $fetch<MessageResponse>('/api/v1/auth/confirm', {
         method: 'POST',
         body: payload
       })
-    )
+
+      await fetchProfile()
+
+      return data
+    })
   }
 
   async function forgotPassword(payload: ForgotPasswordPayload) {

@@ -315,11 +315,14 @@ describe('Nuxt Composables', () => {
       expect(mockNavigateTo).toHaveBeenCalledWith(PAGES.auth.url)
     })
 
-    it('posts to register, confirm, forgotPassword, resetPassword, and changeEmail v1 endpoints', async () => {
+    it('posts to register, confirm (and fetches profile), forgotPassword, resetPassword, and changeEmail v1 endpoints', async () => {
+      const authStore = useAuthStore()
       const { register, confirm, forgotPassword, resetPassword, changeEmail } = useAuth()
 
       mockRegisterEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.register })
       mockConfirmEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.confirm })
+      mockGetSession.mockResolvedValueOnce({ data: { session: { access_token: 'jwt-confirm' } } })
+      mockMeEndpoint.mockReturnValueOnce({ id: 'u-confirm', username: 'yobune', role: 'user' })
       mockForgotPasswordEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.resetPassword })
       mockResetPasswordEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.updatePassword })
       mockChangeEmailEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.changeEmail })
@@ -335,6 +338,7 @@ describe('Nuxt Composables', () => {
       expect(await confirm({ username: 'yobune', token: 'tok_1' })).toEqual({
         message: SUCCESS_MESSAGE.confirm
       })
+      expect(authStore.profile?.username).toBe('yobune')
 
       expect(await forgotPassword({ email: 'a@b.com' })).toEqual({
         message: SUCCESS_MESSAGE.resetPassword
