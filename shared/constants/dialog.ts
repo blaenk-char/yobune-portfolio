@@ -12,7 +12,7 @@ export enum DialogId {
 }
 
 type DialogConfig = {
-  storageKey: string // key for localstorage
+  storageKey: string // key for cookie
   speed: number
   image: string // dialog character
   resetLabel: string

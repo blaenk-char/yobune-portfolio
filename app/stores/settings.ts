@@ -2,7 +2,9 @@ import { CURSOR_CONFIG, DIALOG_CONFIG, NSFW_CONFIG } from '#shared/constants'
 
 export const useSettingsStore = defineStore('settings', () => {
   /* Refs */
-  const cursor = ref<boolean>(true)
+  const cursor = useCookie<boolean>(CURSOR_CONFIG.storageKey, {
+    default: () => CURSOR_CONFIG.default
+  })
   const nsfw = ref<boolean>(NSFW_CONFIG.default)
 
   /* Computeds */
@@ -11,12 +13,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const showDialog = computed<boolean>(() => isPageAllowed(DIALOG_CONFIG.pages))
 
   /* Lifecycle Hooks */
-  onNuxtReady(() => {
-    cursor.value = !(
-      (localStorage.getItem(CURSOR_CONFIG.storageKey) ?? String(CURSOR_CONFIG.default)) === 'true'
-    )
-    toggleCursor()
-  })
+  onNuxtReady(updateCursorClass)
 
   /* Functions */
   function updateCursorClass() {
@@ -29,7 +26,6 @@ export const useSettingsStore = defineStore('settings', () => {
 
   function toggleCursor() {
     cursor.value = !cursor.value
-    localStorage.setItem(CURSOR_CONFIG.storageKey, String(cursor.value))
     updateCursorClass()
   }
 

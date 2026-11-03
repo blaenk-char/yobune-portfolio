@@ -16,6 +16,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   colorMode: {
+    storage: 'cookie',
     storageKey: 'blaenk-color-mode'
   },
 

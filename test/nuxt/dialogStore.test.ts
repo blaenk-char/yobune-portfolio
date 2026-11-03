@@ -1,17 +1,17 @@
-import { useDialogStore } from '#imports'
+import { useCookie, useDialogStore } from '#imports'
+import { DIALOG_CONFIG, DIALOGS } from '#shared/constants'
 import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import { DIALOGS, DIALOG_CONFIG } from '#shared/constants'
 
 describe('useDialogStore', () => {
   let store: ReturnType<typeof useDialogStore>
 
   beforeEach(() => {
+    useCookie(DIALOG_CONFIG.storageKey).value = null
     setActivePinia(createPinia())
     store = useDialogStore()
     store.stop() // always start from dialogIndex -1
-    localStorage.clear()
   })
 
   it('starts at dialogIndex -1 with no current scene', () => {
@@ -57,10 +57,10 @@ describe('useDialogStore', () => {
     expect(store.dialogIndex).toBe(-1)
   })
 
-  it('stop() writes "false" to localStorage', async () => {
+  it('stop() writes false to cookie', async () => {
     await store.next()
     store.stop()
-    expect(localStorage.getItem(DIALOG_CONFIG.storageKey)).toBe('false')
+    expect(useCookie(DIALOG_CONFIG.storageKey).value).toBe(false)
   })
 
   it('stop() makes currentDialog null', async () => {
@@ -77,12 +77,12 @@ describe('useDialogStore', () => {
     expect(store.dialogIndex).toBe(0)
   })
 
-  it('reset() removes the storageKey from localStorage', async () => {
+  it('reset() clears the storageKey cookie', async () => {
     await store.next()
     store.stop()
     store.reset()
     await nextTick()
-    expect(localStorage.getItem(DIALOG_CONFIG.storageKey)).toBeNull()
+    expect(useCookie(DIALOG_CONFIG.storageKey).value).toBeNull()
   })
 
   it('onTypingStart() sets isTyping to true', () => {

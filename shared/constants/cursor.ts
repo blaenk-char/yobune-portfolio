@@ -11,7 +11,7 @@ type CursorConfig = {
 
 export const CURSOR_CONFIG: CursorConfig = {
   className: 'fancy-cursor', // class set on document
-  storageKey: 'blaenk-fancy-cursor', // key for localstorage
+  storageKey: 'blaenk-fancy-cursor', // key for cookie
   default: true,
   trueLabel: 'Cursor: Fancy',
   falseLabel: 'Cursor: Boring',

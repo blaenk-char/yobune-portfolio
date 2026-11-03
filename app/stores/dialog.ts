@@ -2,6 +2,7 @@ import { DIALOG_CONFIG, DIALOGS, type DialogRecord } from '#shared/constants'
 
 export const useDialogStore = defineStore('dialog', () => {
   /* Refs */
+  const dialogCookie = useCookie<boolean | null>(DIALOG_CONFIG.storageKey)
   const dialogIndex = ref(-1)
   const isTyping = ref(false)
 
@@ -33,13 +34,12 @@ export const useDialogStore = defineStore('dialog', () => {
 
   function stop() {
     dialogIndex.value = -1
-    localStorage.setItem(DIALOG_CONFIG.storageKey, 'false')
-    return
+    dialogCookie.value = false
   }
 
   function reset() {
     stop()
-    localStorage.removeItem(DIALOG_CONFIG.storageKey)
+    dialogCookie.value = null
     next()
   }
 

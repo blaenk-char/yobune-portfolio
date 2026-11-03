@@ -1,15 +1,15 @@
-import { useSettingsStore } from '#imports'
-import { setActivePinia, createPinia } from 'pinia'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { useCookie, useSettingsStore } from '#imports'
 import { CURSOR_CONFIG, NSFW_CONFIG } from '#shared/constants'
+import { createPinia, setActivePinia } from 'pinia'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('useSettingsStore', () => {
   let store: ReturnType<typeof useSettingsStore>
 
   beforeEach(() => {
+    useCookie(CURSOR_CONFIG.storageKey).value = null
     setActivePinia(createPinia())
     store = useSettingsStore()
-    localStorage.clear()
     document.body.classList.remove(CURSOR_CONFIG.className)
   })
 
@@ -36,9 +36,9 @@ describe('useSettingsStore', () => {
     expect(store.cursor).toBe(!before)
   })
 
-  it('toggleCursor() saves to localStorage', () => {
+  it('toggleCursor() saves to cookie', () => {
     store.toggleCursor()
-    expect(localStorage.getItem(CURSOR_CONFIG.storageKey)).toBe(String(store.cursor))
+    expect(useCookie(CURSOR_CONFIG.storageKey).value).toBe(store.cursor)
   })
 
   it('two toggleCursor() calls return to the original value', () => {
@@ -64,10 +64,10 @@ describe('useSettingsStore', () => {
     expect(document.body.classList.contains(CURSOR_CONFIG.className)).toBe(false)
   })
 
-  it('localStorage value stays in sync after multiple toggles', () => {
+  it('cookie value stays in sync after multiple toggles', () => {
     store.toggleCursor()
     store.toggleCursor()
     store.toggleCursor()
-    expect(localStorage.getItem(CURSOR_CONFIG.storageKey)).toBe(String(store.cursor))
+    expect(useCookie(CURSOR_CONFIG.storageKey).value).toBe(store.cursor)
   })
 })
