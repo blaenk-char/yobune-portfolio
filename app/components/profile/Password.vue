@@ -32,7 +32,7 @@ async function onSubmit(event: FormSubmitEvent<ChangePasswordSchema>) {
   <UForm :schema="changePasswordSchema" :state @submit="onSubmit">
     <!-- Password -->
     <UFormField :label="UI_TEXT.passwordCurrent" name="password">
-      <AuthPasswordInput v-model="state.password" />
+      <AuthPasswordInput v-model="state.password" autocomplete="new-password" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.sendLink" :loading />

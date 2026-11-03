@@ -28,15 +28,15 @@ async function onSubmit(event: FormSubmitEvent<RegisterSchema>) {
   <UForm :schema="registerSchema" :state @submit="onSubmit">
     <!-- Email -->
     <UFormField :label="UI_TEXT.email" name="email">
-      <UInput v-model="state.email" />
+      <UInput v-model="state.email" autocomplete="off" />
     </UFormField>
     <!-- Password -->
     <UFormField :label="UI_TEXT.password" name="password">
-      <AuthPasswordInput v-model="state.password" />
+      <AuthPasswordInput v-model="state.password" autocomplete="new-password" />
     </UFormField>
     <!-- Confirm Password -->
     <UFormField :label="UI_TEXT.passwordConfirm" name="confirmPassword">
-      <AuthPasswordInput v-model="state.confirmPassword" />
+      <AuthPasswordInput v-model="state.confirmPassword" autocomplete="new-password" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.register" :loading />

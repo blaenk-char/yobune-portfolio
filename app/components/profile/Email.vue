@@ -28,7 +28,7 @@ async function onSubmit(event: FormSubmitEvent<ChangeEmailSchema>) {
   <UForm :schema="changeEmailSchema" :state @submit="onSubmit">
     <!-- Email -->
     <UFormField :label="UI_TEXT.emailNew" name="email">
-      <UInput v-model="state.email" />
+      <UInput v-model="state.email" autocomplete="off" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.sendLink" :loading />
