@@ -19,6 +19,7 @@ export const useAuth = () => {
   const supabase = useSupabaseClient()
   const authStore = useAuthStore()
   const { fetchProfile } = useProfile()
+  const route = useRoute()
 
   /* Refs */
   const loading = ref<boolean>(false)
@@ -34,10 +35,15 @@ export const useAuth = () => {
 
   async function loginWithGoogle() {
     return withLoading(loading, async () => {
+      const redirect = route.query.redirect as string | undefined
+      const redirectTo = redirect
+        ? `${window.location.origin}?redirect=${encodeURIComponent(redirect)}`
+        : window.location.origin
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin
+          redirectTo
         }
       })
       if (error) throw error

@@ -266,9 +266,10 @@ describe('Nuxt Composables', () => {
       expect(authStore.profile?.username).toBe('yobune')
     })
 
-    it('initiates Google OAuth login with window.location.origin redirect', async () => {
+    it('initiates Google OAuth login with window.location.origin and preserves ?redirect query', async () => {
+      const route = useRoute()
       const { loginWithGoogle } = useAuth()
-      mockSignInWithOAuth.mockResolvedValueOnce({ error: null })
+      mockSignInWithOAuth.mockResolvedValue({ error: null })
 
       await loginWithGoogle()
 
@@ -278,6 +279,17 @@ describe('Nuxt Composables', () => {
           redirectTo: window.location.origin
         }
       })
+
+      route.query.redirect = '/profile'
+      await loginWithGoogle()
+
+      expect(mockSignInWithOAuth).toHaveBeenLastCalledWith({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}?redirect=%2Fprofile`
+        }
+      })
+      delete route.query.redirect
     })
 
     it('confirms OAuth session via POST /api/v1/auth/oauth and populates authStore', async () => {
