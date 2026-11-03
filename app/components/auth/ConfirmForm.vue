@@ -33,7 +33,7 @@ async function onSubmit(event: FormSubmitEvent<ConfirmSchema>) {
   <UForm :schema="confirmSchema" :state @submit="onSubmit">
     <!-- Username -->
     <UFormField :label="UI_TEXT.username" name="username">
-      <UInput v-model="state.username" />
+      <UInput v-model="state.username" autocomplete="off" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.confirm" :loading />

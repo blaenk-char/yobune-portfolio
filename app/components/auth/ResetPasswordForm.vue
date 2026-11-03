@@ -33,11 +33,11 @@ async function onSubmit(event: FormSubmitEvent<ResetPasswordSchema>) {
   <UForm :schema="resetPasswordSchema" :state @submit="onSubmit">
     <!-- Password -->
     <UFormField :label="UI_TEXT.password" name="password">
-      <AuthPasswordInput v-model="state.password" />
+      <AuthPasswordInput v-model="state.password" autocomplete="new-password" />
     </UFormField>
     <!-- Confirm Password -->
     <UFormField :label="UI_TEXT.passwordConfirm" name="confirmPassword">
-      <AuthPasswordInput v-model="state.confirmPassword" />
+      <AuthPasswordInput v-model="state.confirmPassword" autocomplete="new-password" />
     </UFormField>
     <!-- Submit -->
     <UiSubmitButton :label="UI_TEXT.resetPassword" :loading />
