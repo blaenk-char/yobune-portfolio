@@ -85,7 +85,8 @@ registerEndpoint('/api/v1/auth/reset-password', {
 })
 registerEndpoint('/api/v1/auth/change-email', {
   method: 'POST',
-  handler: async (event) => mockChangeEmailEndpoint(await event.web!.request!.json())
+  handler: async (event) =>
+    mockChangeEmailEndpoint(event.headers.get('authorization'), await event.web!.request!.json())
 })
 
 describe('Nuxt Composables', () => {
@@ -198,7 +199,7 @@ describe('Nuxt Composables', () => {
       const { fetchProfile } = useProfile()
       const fakeProfile = { id: 'u-1', username: 'yobune', role: 'user' }
 
-      mockGetSession.mockResolvedValueOnce({
+      mockGetSession.mockResolvedValue({
         data: { session: { access_token: 'jwt-123' } }
       })
       mockMeEndpoint.mockReturnValueOnce(fakeProfile)
@@ -214,7 +215,7 @@ describe('Nuxt Composables', () => {
       const authStore = useAuthStore()
       const { fetchProfile } = useProfile()
 
-      mockGetSession.mockResolvedValueOnce({
+      mockGetSession.mockResolvedValue({
         data: { session: { access_token: 'expired-jwt' } }
       })
       mockMeEndpoint.mockImplementationOnce(() => {
@@ -231,9 +232,7 @@ describe('Nuxt Composables', () => {
       const authStore = useAuthStore()
       const { updateUsername } = useProfile()
 
-      mockGetSession
-        .mockResolvedValueOnce({ data: { session: { access_token: 'jwt-123' } } })
-        .mockResolvedValueOnce({ data: { session: { access_token: 'jwt-123' } } })
+      mockGetSession.mockResolvedValue({ data: { session: { access_token: 'jwt-123' } } })
 
       mockUpdateUsernameEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.usernameUpdated })
       mockMeEndpoint.mockReturnValueOnce({ id: 'u-1', username: 'renamed', role: 'user' })
@@ -254,7 +253,7 @@ describe('Nuxt Composables', () => {
       const { login } = useAuth()
 
       mockSignInWithPassword.mockResolvedValueOnce({ error: null })
-      mockGetSession.mockResolvedValueOnce({ data: { session: { access_token: 'jwt-login' } } })
+      mockGetSession.mockResolvedValue({ data: { session: { access_token: 'jwt-login' } } })
       mockMeEndpoint.mockReturnValueOnce({ id: 'u-1', username: 'yobune', role: 'user' })
 
       await login({ email: 'artist@yobune.art', password: 'Valid1!Password' })
@@ -307,7 +306,7 @@ describe('Nuxt Composables', () => {
       const authStore = useAuthStore()
       const { confirmOAuth } = useAuth()
 
-      mockGetSession.mockResolvedValueOnce({ data: { session: { access_token: 'jwt-oauth' } } })
+      mockGetSession.mockResolvedValue({ data: { session: { access_token: 'jwt-oauth' } } })
       mockOAuthEndpoint.mockReturnValueOnce({
         id: 'u-google',
         username: 'google_artist',
@@ -344,7 +343,7 @@ describe('Nuxt Composables', () => {
 
       mockRegisterEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.register })
       mockConfirmEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.confirm })
-      mockGetSession.mockResolvedValueOnce({ data: { session: { access_token: 'jwt-confirm' } } })
+      mockGetSession.mockResolvedValue({ data: { session: { access_token: 'jwt-confirm' } } })
       mockMeEndpoint.mockReturnValueOnce({ id: 'u-confirm', username: 'yobune', role: 'user' })
       mockForgotPasswordEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.resetPassword })
       mockResetPasswordEndpoint.mockReturnValueOnce({ message: SUCCESS_MESSAGE.updatePassword })
@@ -375,8 +374,12 @@ describe('Nuxt Composables', () => {
         })
       ).toEqual({ message: SUCCESS_MESSAGE.updatePassword })
 
+      mockGetSession.mockResolvedValue({ data: { session: { access_token: 'jwt-email' } } })
       expect(await changeEmail({ email: 'new@b.com' })).toEqual({
         message: SUCCESS_MESSAGE.changeEmail
+      })
+      expect(mockChangeEmailEndpoint).toHaveBeenCalledWith('Bearer jwt-email', {
+        email: 'new@b.com'
       })
     })
 

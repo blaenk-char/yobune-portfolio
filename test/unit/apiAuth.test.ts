@@ -12,6 +12,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 const {
   mockRateLimit,
   mockParseBody,
+  mockRequireAuth,
   mockVerifySupabaseUser,
   mockGenerateUniqueUsername,
   mockPrismaFindUnique,
@@ -24,6 +25,7 @@ const {
 } = vi.hoisted(() => {
   const mockRateLimit = vi.fn()
   const mockParseBody = vi.fn()
+  const mockRequireAuth = vi.fn()
   const mockVerifySupabaseUser = vi.fn()
   const mockGenerateUniqueUsername = vi.fn()
   const mockPrismaFindUnique = vi.fn()
@@ -38,6 +40,7 @@ const {
   g.defineEventHandler = <T>(fn: T) => fn
   g.rateLimit = mockRateLimit
   g.parseBody = mockParseBody
+  g.requireAuth = mockRequireAuth
   g.verifySupabaseUser = mockVerifySupabaseUser
   g.generateUniqueUsername = mockGenerateUniqueUsername
   g.useRuntimeConfig = () => ({
@@ -55,6 +58,7 @@ const {
   return {
     mockRateLimit,
     mockParseBody,
+    mockRequireAuth,
     mockVerifySupabaseUser,
     mockGenerateUniqueUsername,
     mockPrismaFindUnique,
@@ -291,12 +295,15 @@ describe('Server API v1 Auth Handlers', () => {
   })
 
   describe('POST /api/v1/auth/change-email', () => {
-    it('requests Supabase email update with change-email redirect URL', async () => {
+    it('requires authentication and requests Supabase email update with change-email redirect URL', async () => {
+      mockRequireAuth.mockResolvedValueOnce({ user: { id: 'u-1' }, profile: { id: 'u-1' } })
       mockParseBody.mockResolvedValueOnce({ email: 'new@yobune.art' })
       mockUpdateUser.mockResolvedValueOnce({ error: null })
 
       const res = await changeEmailHandler(mockEvent)
 
+      expect(mockRateLimit).toHaveBeenCalledWith(mockEvent)
+      expect(mockRequireAuth).toHaveBeenCalledWith(mockEvent)
       expect(mockUpdateUser).toHaveBeenCalledWith(
         { email: 'new@yobune.art' },
         { emailRedirectTo: `https://yobune.art${PAGES.changeEmail.url}` }

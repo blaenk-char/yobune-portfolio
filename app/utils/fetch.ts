@@ -10,3 +10,27 @@ export async function withLoading<T>(loading: Ref<boolean>, fn: () => Promise<T>
     loading.value = false
   })
 }
+
+/**
+ * Fetch wrapper that automatically attaches the Supabase Bearer token header.
+ *
+ * @param url The endpoint URL to fetch
+ * @param options Optional fetch configuration
+ */
+export async function authFetch<T>(
+  url: string,
+  options: Parameters<typeof $fetch>[1] = {}
+): Promise<T> {
+  const supabase = useSupabaseClient()
+  const {
+    data: { session }
+  } = await supabase.auth.getSession()
+
+  return $fetch(url, {
+    ...options,
+    headers: {
+      ...options?.headers,
+      Authorization: `Bearer ${session?.access_token}`
+    }
+  })
+}

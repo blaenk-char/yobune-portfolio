@@ -4,6 +4,7 @@ import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
   rateLimit(event)
+  await requireAuth(event)
   const { email } = await parseBody(event, changeEmailSchema)
 
   const supabase = await serverSupabaseClient(event)

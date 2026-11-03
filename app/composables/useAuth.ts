@@ -58,8 +58,7 @@ export const useAuth = () => {
       } = await supabase.auth.getSession()
       if (!session) return
 
-      authStore.profile = await $fetch<Profile>('/api/v1/auth/oauth', {
-        headers: { Authorization: `Bearer ${session.access_token}` },
+      authStore.profile = await authFetch<Profile>('/api/v1/auth/oauth', {
         method: 'POST'
       })
       authStore.ready = true
@@ -115,7 +114,7 @@ export const useAuth = () => {
 
   async function changeEmail(payload: ChangeEmailPayload) {
     return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/v1/auth/change-email', {
+      authFetch<MessageResponse>('/api/v1/auth/change-email', {
         method: 'POST',
         body: payload
       })
@@ -153,12 +152,7 @@ export const useAuth = () => {
 
   async function deleteAccount() {
     return withLoading(loading, async () => {
-      const {
-        data: { session }
-      } = await supabase.auth.getSession()
-
-      const data = await $fetch<MessageResponse>('/api/v1/profile/delete', {
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+      const data = await authFetch<MessageResponse>('/api/v1/profile/delete', {
         method: 'DELETE'
       })
 
