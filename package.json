@@ -12,10 +12,10 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
-    "test": "vitest",
-    "test:nuxt": "vitest --project nuxt",
-    "test:unit": "vitest --project unit",
-    "test:e2e": "playwright test"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run --project unit",
+    "test:nuxt": "vitest run --project nuxt"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.105",
@@ -44,7 +44,6 @@
     "dotenv": "^17.4.2",
     "eslint": "^10.3.0",
     "happy-dom": "^20.9.0",
-    "playwright-core": "^1.60.0",
     "prettier": "^3.8.3",
     "prisma": "^7.8.0",
     "supabase": "^2.105.0",
