@@ -18,6 +18,7 @@ const popoverOpen = ref(false)
 const cursorLabel = computed(() =>
   settingsStore.cursor ? CURSOR_CONFIG.trueLabel : CURSOR_CONFIG.falseLabel
 )
+const avatarText = computed(() => authStore.profile?.username.at(0)?.toUpperCase() ?? '?')
 
 /* Watches */
 watch(
@@ -128,13 +129,9 @@ watch(
 
       <!-- Desktop Popover -->
       <UPopover v-model:open="popoverOpen" :content="{ align: 'end', sideOffset: 8 }">
-        <button v-if="authStore.profile" type="button" :class="showSmClass">
-          <UAvatar :text="authStore.profile.username.at(0)?.toUpperCase()" />
+        <button type="button" :class="showSmClass">
+          <UAvatar :text="avatarText" />
         </button>
-
-        <UButton v-else :class="showSmClass">
-          {{ UI_TEXT.login }}
-        </UButton>
 
         <template #content>
           <div class="p-4 w-72">
@@ -146,13 +143,9 @@ watch(
 
     <!-- Mobile Drawer -->
     <template #toggle="{ toggle }">
-      <button v-if="authStore.profile" type="button" class="sm:hidden" @click="toggle">
-        <UAvatar :text="authStore.profile.username.at(0)?.toUpperCase()" />
+      <button type="button" class="sm:hidden" @click="toggle">
+        <UAvatar :text="avatarText" />
       </button>
-
-      <UButton v-else class="sm:hidden" @click="toggle">
-        {{ UI_TEXT.login }}
-      </UButton>
     </template>
 
     <!-- Mobile Drawer Content -->
