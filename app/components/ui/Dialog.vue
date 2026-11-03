@@ -1,25 +1,32 @@
 <script setup lang="ts">
 /* Imports */
-import { DIALOG_CONFIG, type DialogId, DIALOGS } from '~/constants'
+import { DIALOG_CONFIG, type DialogId, DIALOGS } from '#shared/constants'
 
 /* Props */
 const props = defineProps<{ id: DialogId }>()
 
 /* Constants */
 const dialogStore = useDialogStore()
+const settingsStore = useSettingsStore()
 
 /* Variables */
 const scene = DIALOGS.find((scene) => scene.id === props.id)
 const text = ref<string>(scene?.dialog ?? '')
 const { output, start } = useTypewriter(text)
-const isActive = computed<boolean>(() => dialogStore.currentDialog?.id === props.id)
+const isActive = computed<boolean>(
+  () => settingsStore.showDialog && dialogStore.currentDialog?.id === props.id
+)
 
 /* Watches */
-watch(isActive, (active) => {
-  if (!active) return
-  dialogStore.onTypingStart()
-  start(() => dialogStore.onTypingDone())
-})
+watch(
+  isActive,
+  (active) => {
+    if (!active) return
+    dialogStore.onTypingStart()
+    start(() => dialogStore.onTypingDone())
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -33,7 +40,13 @@ watch(isActive, (active) => {
     >
       <div class="flex items-center gap-4 h-28 sm:h-24">
         <!-- Image -->
-        <img :src="DIALOG_CONFIG.image" draggable="false" class="rounded-xl w-16 h-16" />
+        <img
+          :src="DIALOG_CONFIG.image"
+          alt="Pinky"
+          loading="lazy"
+          draggable="false"
+          class="rounded-xl w-16 h-16"
+        />
         <!-- Text -->
         <p>{{ output }}</p>
       </div>

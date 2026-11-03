@@ -1,7 +1,4 @@
 <script setup lang="ts">
-/* Imports */
-import { onMounted, ref } from 'vue'
-
 /* Props */
 defineProps({
   imageA: { type: String, required: true },
@@ -43,12 +40,11 @@ function stopDrag() {
   dragging.value = false
 }
 
-onMounted(() => {
-  window.addEventListener('mousemove', onMove)
-  window.addEventListener('touchmove', onMoveTouch, { passive: true })
-  window.addEventListener('mouseup', stopDrag)
-  window.addEventListener('touchend', stopDrag)
-})
+/* Event Listeners */
+useEventListener('mousemove', onMove)
+useEventListener('touchmove', onMoveTouch, { passive: true })
+useEventListener('mouseup', stopDrag)
+useEventListener('touchend', stopDrag)
 </script>
 
 <template>
@@ -61,11 +57,19 @@ onMounted(() => {
     @touchstart.passive="startDragTouch"
   >
     <!-- Base Image (Right) -->
-    <img :src="imageB" draggable="false" class="absolute inset-0 w-full h-full object-cover" />
+    <img
+      :src="imageB"
+      alt="High quality artwork"
+      loading="lazy"
+      draggable="false"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
 
     <!-- Overlay Image (Left) -->
     <img
       :src="imageA"
+      alt="Low quality artwork"
+      loading="lazy"
       draggable="false"
       class="absolute inset-0 w-full h-full object-cover"
       :style="{ clipPath: `inset(0 ${100 - pos}% 0 0)` }"

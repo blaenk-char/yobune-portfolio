@@ -1,3 +1,6 @@
+/**
+ * Handle the lightbox modal for viewing images.
+ */
 export const useLightbox = () => {
   const isOpen = useState('lightbox-open', () => false)
   const image = useState('lightbox-image', () => '')

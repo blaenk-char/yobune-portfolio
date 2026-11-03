@@ -1,12 +1,15 @@
 # Issue #(issue)
 
-## Description
+## YobuneArt Portfolio - vx.x.x
+
+### Description
 
 Brief description of changements.
 
-## Checklist
+### Checklist
 
 - [ ] Updated version number
 - [ ] Ran `npm run format`
 - [ ] Ran `npm run lint` and fixed errors
 - [ ] Ran `npm run type-check` and fixed errors
+- [ ] Ran `npm run test` and fixed errors

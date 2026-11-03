@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { ANIMATIONS, DialogId } from '~/constants'
+import { ANIMATIONS, DialogId } from '#shared/constants'
 </script>
 
 <template>

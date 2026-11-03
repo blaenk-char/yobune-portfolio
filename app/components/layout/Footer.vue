@@ -1,23 +1,13 @@
 <script setup lang="ts">
 /* Imports */
-import { FOOTER_CONFIG, SOCIALS } from '~/constants'
+import { FOOTER_CONFIG, PAGES, SOCIALS, UI_TEXT } from '#shared/constants'
 </script>
 
 <template>
-  <UFooter
-    class="text-muted text-sm"
-    :ui="{
-      container: 'flex! justify-between',
-      bottom:
-        'flex flex-col sm:flex-row items-center justify-center gap-2 py-2! text-sm text-muted bg-muted border-t border-default',
-      left: 'flex flex-col items-start order-0',
-      center: 'order-1',
-      right: 'flex flex-col items-end order-2'
-    }"
-  >
+  <UFooter>
     <!-- Ownership -->
     <template #left>
-      <p v-for="(line, i) in FOOTER_CONFIG.ownership" :key="i" :class="{ 'font-bold': i === 0 }">
+      <p v-for="(line, key) in FOOTER_CONFIG.ownership" :key :class="{ 'font-bold': key === 0 }">
         {{ line }}
       </p>
     </template>
@@ -27,28 +17,35 @@ import { FOOTER_CONFIG, SOCIALS } from '~/constants'
 
     <!-- Contact -->
     <template #right>
-      <p class="font-bold">Contact</p>
+      <p class="font-bold">{{ UI_TEXT.contact }}</p>
       <p>{{ FOOTER_CONFIG.contact }}</p>
     </template>
 
     <!-- Banner -->
     <template #bottom>
       <!-- Legal -->
-      <span>© {{ new Date().getFullYear() }} {{ FOOTER_CONFIG.legal }}. All rights reserved.</span>
+      <span>
+        © {{ new Date().getFullYear() }} {{ FOOTER_CONFIG.legal }}. {{ UI_TEXT.allRightsReserved }}
+      </span>
+      <!-- Divider -->
+      <span class="hidden sm:inline-block">•</span>
+      <!-- Privacy Policy -->
+      <ULink :to="PAGES.privacy.url" :active="false">
+        {{ UI_TEXT.privacyPolicy }}
+      </ULink>
       <!-- Divider -->
       <span class="hidden sm:inline-block">•</span>
       <!-- Credit -->
-      <span class="flex items-center gap-1">
-        Created by
+      <ULink :to="FOOTER_CONFIG.credit" class="flex items-center gap-1">
+        {{ UI_TEXT.createdBy }}
         <UButton
           icon="i-simple-icons-github"
           color="neutral"
           variant="ghost"
-          :to="FOOTER_CONFIG.credit"
           target="_blank"
-          class="p-1"
+          class="p-1 cursor-default"
         />
-      </span>
+      </ULink>
     </template>
   </UFooter>
 </template>

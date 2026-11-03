@@ -1,6 +1,10 @@
 name: ci
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - dev
 
 jobs:
   ci:
@@ -34,4 +38,4 @@ jobs:
         run: pnpm typecheck
 
       - name: Test
-        run: pnpm test:nuxt
+        run: pnpm test

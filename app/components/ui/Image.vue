@@ -1,11 +1,26 @@
 <script setup lang="ts">
 /* Props */
-defineProps<{ src: string }>()
+withDefaults(
+  defineProps<{
+    src: string
+    loading?: 'lazy' | 'eager'
+  }>(),
+  {
+    alt: 'Artwork',
+    loading: 'lazy'
+  }
+)
 
 /* Constants */
 const { open } = useLightbox()
 </script>
 
 <template>
-  <img :src="src" draggable="false" class="cursor-pointer rounded-xl" @click="open(src)" />
+  <img
+    :src="src"
+    :loading="loading"
+    draggable="false"
+    class="cursor-pointer rounded-xl"
+    @click="open(src)"
+  />
 </template>

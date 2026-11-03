@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/* Imports */
+import { UI_TEXT } from '#shared/constants'
+
 /* Props */
 defineProps<{
   items: string[]
@@ -30,7 +33,7 @@ const showMore = ref<boolean>(false)
     <!-- Show More -->
     <UButton
       v-if="isMobile"
-      :label="showMore ? 'Show Less' : 'Show More'"
+      :label="showMore ? UI_TEXT.showLess : UI_TEXT.showMore"
       size="xl"
       class="justify-center w-full"
       @click="showMore = !showMore"

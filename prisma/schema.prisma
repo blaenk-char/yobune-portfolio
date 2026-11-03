@@ -1,0 +1,20 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model profiles {
+    id       String    @id @db.Uuid
+    username String    @unique @db.VarChar(64)
+    role     user_role @default(user)
+}
+
+enum user_role {
+    super_admin
+    admin
+    user
+}
