@@ -7,12 +7,14 @@ import { createError } from 'h3'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const {
+  mockRateLimit,
   mockRequireAuth,
   mockParseBody,
   mockPrismaFindFirst,
   mockPrismaUpdate,
   mockAdminDeleteUser
 } = vi.hoisted(() => {
+  const mockRateLimit = vi.fn()
   const mockRequireAuth = vi.fn()
   const mockParseBody = vi.fn()
   const mockPrismaFindFirst = vi.fn()
@@ -21,6 +23,7 @@ const {
 
   const g = globalThis as Record<string, unknown>
   g.defineEventHandler = <T>(fn: T) => fn
+  g.rateLimit = mockRateLimit
   g.requireAuth = mockRequireAuth
   g.parseBody = mockParseBody
   g.prisma = {
@@ -31,6 +34,7 @@ const {
   }
 
   return {
+    mockRateLimit,
     mockRequireAuth,
     mockParseBody,
     mockPrismaFindFirst,
@@ -98,6 +102,7 @@ describe('Server API v1 Profile Handlers', () => {
 
       const res = await updateUsernameHandler(mockEvent)
 
+      expect(mockRateLimit).toHaveBeenCalledWith(mockEvent)
       expect(mockPrismaFindFirst).toHaveBeenCalledWith({
         where: {
           username: 'new_name',
@@ -122,6 +127,7 @@ describe('Server API v1 Profile Handlers', () => {
 
       const res = await deleteAccountHandler(mockEvent)
 
+      expect(mockRateLimit).toHaveBeenCalledWith(mockEvent)
       expect(mockAdminDeleteUser).toHaveBeenCalledWith('u-delete')
       expect(res).toEqual({ message: SUCCESS_MESSAGE.accountDeleted })
     })

@@ -2,6 +2,7 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '#shared/constants'
 import { usernameSchema } from '#shared/schemas'
 
 export default defineEventHandler(async (event) => {
+  rateLimit(event)
   const { profile } = await requireAuth(event)
   const { username } = await parseBody(event, usernameSchema)
 

@@ -2,6 +2,7 @@ import { useSupabaseAdmin } from '#server/utils/supabaseAdmin'
 import { SUCCESS_MESSAGE } from '#shared/constants'
 
 export default defineEventHandler(async (event) => {
+  rateLimit(event)
   const { user } = await requireAuth(event)
   const admin = useSupabaseAdmin()
 
