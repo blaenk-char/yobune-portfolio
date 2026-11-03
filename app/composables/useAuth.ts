@@ -6,6 +6,7 @@ import type {
   ConfirmPayload,
   ForgotPasswordPayload,
   MessageResponse,
+  Profile,
   RegisterPayload,
   ResetPasswordPayload
 } from '#shared/types'
@@ -28,6 +29,33 @@ export const useAuth = () => {
       const { error } = await supabase.auth.signInWithPassword(payload)
       if (error) throw error
       await fetchProfile()
+    })
+  }
+
+  async function loginWithGoogle() {
+    return withLoading(loading, async () => {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin
+        }
+      })
+      if (error) throw error
+    })
+  }
+
+  async function confirmOAuth() {
+    return withLoading(loading, async () => {
+      const {
+        data: { session }
+      } = await supabase.auth.getSession()
+      if (!session) return
+
+      authStore.profile = await $fetch<Profile>('/api/auth/oauth', {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+        method: 'POST'
+      })
+      authStore.ready = true
     })
   }
 
@@ -133,6 +161,8 @@ export const useAuth = () => {
   return {
     loading,
     login,
+    loginWithGoogle,
+    confirmOAuth,
     logout,
     register,
     confirm,

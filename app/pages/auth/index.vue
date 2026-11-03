@@ -32,5 +32,9 @@ const items = [
         <AuthRegisterForm />
       </template>
     </UTabs>
+
+    <USeparator :label="UI_TEXT.or" class="my-4" />
+
+    <AuthGoogleButton />
   </AuthCard>
 </template>
