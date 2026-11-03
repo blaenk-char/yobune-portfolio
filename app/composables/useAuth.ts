@@ -51,7 +51,7 @@ export const useAuth = () => {
       } = await supabase.auth.getSession()
       if (!session) return
 
-      authStore.profile = await $fetch<Profile>('/api/auth/oauth', {
+      authStore.profile = await $fetch<Profile>('/api/v1/auth/oauth', {
         headers: { Authorization: `Bearer ${session.access_token}` },
         method: 'POST'
       })
@@ -68,7 +68,7 @@ export const useAuth = () => {
 
   async function register(payload: RegisterPayload) {
     return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/auth/register', {
+      $fetch<MessageResponse>('/api/v1/auth/register', {
         method: 'POST',
         body: payload
       })
@@ -77,7 +77,7 @@ export const useAuth = () => {
 
   async function confirm(payload: ConfirmPayload) {
     return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/auth/confirm', {
+      $fetch<MessageResponse>('/api/v1/auth/confirm', {
         method: 'POST',
         body: payload
       })
@@ -86,7 +86,7 @@ export const useAuth = () => {
 
   async function forgotPassword(payload: ForgotPasswordPayload) {
     return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/auth/forgot-password', {
+      $fetch<MessageResponse>('/api/v1/auth/forgot-password', {
         method: 'POST',
         body: payload
       })
@@ -95,7 +95,7 @@ export const useAuth = () => {
 
   async function resetPassword(payload: ResetPasswordPayload) {
     return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/auth/reset-password', {
+      $fetch<MessageResponse>('/api/v1/auth/reset-password', {
         method: 'POST',
         body: payload
       })
@@ -104,7 +104,7 @@ export const useAuth = () => {
 
   async function changeEmail(payload: ChangeEmailPayload) {
     return withLoading(loading, () =>
-      $fetch<MessageResponse>('/api/auth/change-email', {
+      $fetch<MessageResponse>('/api/v1/auth/change-email', {
         method: 'POST',
         body: payload
       })
@@ -146,7 +146,7 @@ export const useAuth = () => {
         data: { session }
       } = await supabase.auth.getSession()
 
-      const data = await $fetch<MessageResponse>('/api/profile/delete', {
+      const data = await $fetch<MessageResponse>('/api/v1/profile/delete', {
         headers: { Authorization: `Bearer ${session?.access_token}` },
         method: 'DELETE'
       })

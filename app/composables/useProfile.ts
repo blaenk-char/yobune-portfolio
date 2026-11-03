@@ -20,7 +20,7 @@ export const useProfile = () => {
           authStore.profile = null
           return
         }
-        authStore.profile = await $fetch<Profile>('/api/profile/me', {
+        authStore.profile = await $fetch<Profile>('/api/v1/profile/me', {
           headers: { Authorization: `Bearer ${session.access_token}` }
         })
       } catch {
@@ -37,7 +37,7 @@ export const useProfile = () => {
         data: { session }
       } = await supabase.auth.getSession()
 
-      const data = await $fetch<MessageResponse>('/api/profile/username', {
+      const data = await $fetch<MessageResponse>('/api/v1/profile/username', {
         headers: { Authorization: `Bearer ${session?.access_token}` },
         method: 'PUT',
         body: payload
