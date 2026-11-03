@@ -23,6 +23,7 @@ export const UI_TEXT = {
   password: 'Password',
   passwordConfirm: 'Confirm Password',
   passwordCurrent: 'Current Password',
+  privacyPolicy: 'Privacy Policy',
   profile: 'Profile',
   redirecting: 'Redirecting...',
   register: 'Register',

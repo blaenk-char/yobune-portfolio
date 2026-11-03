@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { FOOTER_CONFIG, SOCIALS, UI_TEXT } from '#shared/constants'
+import { FOOTER_CONFIG, PAGES, SOCIALS, UI_TEXT } from '#shared/constants'
 </script>
 
 <template>
@@ -29,18 +29,23 @@ import { FOOTER_CONFIG, SOCIALS, UI_TEXT } from '#shared/constants'
       </span>
       <!-- Divider -->
       <span class="hidden sm:inline-block">•</span>
+      <!-- Privacy Policy -->
+      <ULink :to="PAGES.privacy.url" :active="false">
+        {{ UI_TEXT.privacyPolicy }}
+      </ULink>
+      <!-- Divider -->
+      <span class="hidden sm:inline-block">•</span>
       <!-- Credit -->
-      <span class="flex items-center gap-1">
+      <ULink :to="FOOTER_CONFIG.credit" class="flex items-center gap-1">
         {{ UI_TEXT.createdBy }}
         <UButton
           icon="i-simple-icons-github"
           color="neutral"
           variant="ghost"
-          :to="FOOTER_CONFIG.credit"
           target="_blank"
           class="p-1 cursor-default"
         />
-      </span>
+      </ULink>
     </template>
   </UFooter>
 </template>

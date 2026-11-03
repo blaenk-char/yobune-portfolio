@@ -34,5 +34,10 @@ export const PAGES = {
   // Change email
   changeEmail: {
     url: '/auth/change-email'
+  },
+
+  // Privacy Policy
+  privacy: {
+    url: '/privacy'
   }
 } satisfies Record<string, PageConfig>
