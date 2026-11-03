@@ -36,9 +36,10 @@ export const useAuth = () => {
   async function loginWithGoogle() {
     return withLoading(loading, async () => {
       const redirect = route.query.redirect as string | undefined
-      const redirectTo = redirect
-        ? `${window.location.origin}?redirect=${encodeURIComponent(redirect)}`
-        : window.location.origin
+      const redirectTo =
+        redirect?.startsWith('/') && !redirect.startsWith('//')
+          ? `${window.location.origin}?redirect=${encodeURIComponent(redirect)}`
+          : window.location.origin
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',

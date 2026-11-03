@@ -18,7 +18,7 @@ async function onSubmit(event: FormSubmitEvent<LoginSchema>) {
   try {
     await login(event.data)
     const redirect = route.query.redirect as string | undefined
-    router.push(redirect?.startsWith('/') ? redirect : PAGES.home.url)
+    router.push(redirect?.startsWith('/') && !redirect.startsWith('//') ? redirect : PAGES.home.url)
   } catch (error: unknown) {
     addToast((error as AuthError).message, 'error')
   }

@@ -289,6 +289,17 @@ describe('Nuxt Composables', () => {
           redirectTo: `${window.location.origin}?redirect=%2Fprofile`
         }
       })
+
+      // Protocol-relative URLs must be ignored
+      route.query.redirect = '//evil.com'
+      await loginWithGoogle()
+
+      expect(mockSignInWithOAuth).toHaveBeenLastCalledWith({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin
+        }
+      })
       delete route.query.redirect
     })
 

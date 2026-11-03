@@ -16,7 +16,10 @@ export default defineNuxtPlugin(async () => {
 
     if (authStore.profile && (route.path === PAGES.auth.url || route.query.code)) {
       const redirect = route.query.redirect as string | undefined
-      await navigateTo(redirect?.startsWith('/') ? redirect : PAGES.home.url, { replace: true })
+      await navigateTo(
+        redirect?.startsWith('/') && !redirect.startsWith('//') ? redirect : PAGES.home.url,
+        { replace: true }
+      )
     }
   }
 
