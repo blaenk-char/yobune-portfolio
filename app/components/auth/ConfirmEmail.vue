@@ -1,8 +1,7 @@
 <script setup lang="ts">
 /* Imports */
-import type { H3Error } from '#build/types/nitro-imports'
-import type { AuthError } from '@supabase/supabase-js'
 import { ERROR_MESSAGE, PAGES, SUCCESS_MESSAGE, UI_TEXT } from '#shared/constants'
+import type { AuthError } from '@supabase/supabase-js'
 
 /* Constants */
 const { loading, confirmEmail } = useAuth()
@@ -24,7 +23,7 @@ async function onSubmit() {
     await navigateTo(PAGES.profile.url)
   } catch (error: unknown) {
     statusMessage.value = (error as AuthError).message || ERROR_MESSAGE.server
-    addToast((error as H3Error).statusMessage, 'error')
+    addToast((error as AuthError).message, 'error')
   }
 }
 
