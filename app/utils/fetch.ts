@@ -1,3 +1,5 @@
+import type { NitroFetchOptions } from 'nitropack/types'
+
 /**
  * Use this function to fetch while giving a loading feedback
  *
@@ -17,20 +19,17 @@ export async function withLoading<T>(loading: Ref<boolean>, fn: () => Promise<T>
  * @param url The endpoint URL to fetch
  * @param options Optional fetch configuration
  */
-export async function authFetch<T>(
-  url: string,
-  options: Parameters<typeof $fetch>[1] = {}
-): Promise<T> {
+export async function authFetch<T>(url: string, options?: NitroFetchOptions<string>): Promise<T> {
   const supabase = useSupabaseClient()
   const {
     data: { session }
   } = await supabase.auth.getSession()
 
-  return $fetch(url, {
+  return $fetch<T>(url, {
     ...options,
     headers: {
       ...options?.headers,
       Authorization: `Bearer ${session?.access_token}`
     }
-  })
+  }) as Promise<T>
 }
