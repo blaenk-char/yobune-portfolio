@@ -1,4 +1,5 @@
 import { CURSOR_CONFIG, DIALOG_CONFIG, DIALOGS, NSFW_CONFIG, PAGES } from '#shared/constants'
+import type { JwtPayload } from '@supabase/supabase-js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('Pinia Stores (Auth, Settings, Dialog)', () => {
@@ -7,8 +8,10 @@ describe('Pinia Stores (Auth, Settings, Dialog)', () => {
   })
 
   describe('useAuthStore', () => {
-    it('manages profile and ready state and clears cleanly', () => {
+    it('manages profile, ready, and isOAuth state and clears cleanly', () => {
       const authStore = useAuthStore()
+      const user = useSupabaseUser()
+
       authStore.profile = {
         id: 'u-1',
         username: 'yobune',
@@ -16,10 +19,22 @@ describe('Pinia Stores (Auth, Settings, Dialog)', () => {
       }
       authStore.ready = false
 
+      user.value = {
+        app_metadata: { provider: 'google', providers: ['google'] }
+      } as unknown as JwtPayload
+      expect(authStore.isOAuth).toBe(true)
+
+      user.value = {
+        app_metadata: { provider: 'email', providers: ['email'] }
+      } as unknown as JwtPayload
+      expect(authStore.isOAuth).toBe(false)
+
+      user.value = null
       authStore.clear()
 
       expect(authStore.profile).toBeNull()
       expect(authStore.ready).toBe(true)
+      expect(authStore.isOAuth).toBe(false)
     })
   })
 

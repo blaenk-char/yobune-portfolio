@@ -1,4 +1,12 @@
-import { CURSOR_CONFIG, FOOTER_CONFIG, PAGES, TITLES, UI_TEXT } from '#shared/constants'
+import {
+  CURSOR_CONFIG,
+  FOOTER_CONFIG,
+  PAGES,
+  PROFILE_SECTIONS,
+  TITLES,
+  UI_TEXT
+} from '#shared/constants'
+import type { JwtPayload } from '@supabase/supabase-js'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { beforeEach, describe, expect, it } from 'vitest'
 import AuthGoogleButton from '~/components/auth/GoogleButton.vue'
@@ -10,6 +18,7 @@ import ProfileEmail from '~/components/profile/Email.vue'
 import ProfilePassword from '~/components/profile/Password.vue'
 import ProfileUsername from '~/components/profile/Username.vue'
 import PrivacyPage from '~/pages/privacy.vue'
+import ProfilePage from '~/pages/profile.vue'
 
 describe('Layout, Auth, Profile & Privacy Components', () => {
   beforeEach(async () => {
@@ -109,6 +118,30 @@ describe('Layout, Auth, Profile & Privacy Components', () => {
 
       const wrapper = await mountSuspended(ProfileUsername)
       expect((wrapper.find('input').element as HTMLInputElement).value).toBe('current_artist')
+    })
+
+    it('hides Email and Password sections on ProfilePage for OAuth-only users while showing them for email users', async () => {
+      const user = useSupabaseUser()
+
+      // Email/password user -> sees Email & Password sections
+      user.value = {
+        app_metadata: { provider: 'email', providers: ['email'] }
+      } as unknown as JwtPayload
+      const emailUserPage = await mountSuspended(ProfilePage)
+      expect(emailUserPage.find(`#${PROFILE_SECTIONS.email}`).exists()).toBe(true)
+      expect(emailUserPage.find(`#${PROFILE_SECTIONS.password}`).exists()).toBe(true)
+
+      // Google OAuth-only user -> Email & Password sections are hidden
+      user.value = {
+        app_metadata: { provider: 'google', providers: ['google'] }
+      } as unknown as JwtPayload
+      const oauthUserPage = await mountSuspended(ProfilePage)
+      expect(oauthUserPage.find(`#${PROFILE_SECTIONS.username}`).exists()).toBe(true)
+      expect(oauthUserPage.find(`#${PROFILE_SECTIONS.email}`).exists()).toBe(false)
+      expect(oauthUserPage.find(`#${PROFILE_SECTIONS.password}`).exists()).toBe(false)
+      expect(oauthUserPage.find(`#${PROFILE_SECTIONS.deleteAccount}`).exists()).toBe(true)
+
+      user.value = null
     })
   })
 

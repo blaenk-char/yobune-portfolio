@@ -7,6 +7,18 @@ definePageMeta({
   layout: 'public',
   middleware: 'auth'
 })
+
+/* Constants */
+const authStore = useAuthStore()
+
+/* Computeds */
+const menuItems = computed(() =>
+  authStore.isOAuth
+    ? PROFILE_MENU.filter(
+        (item) => item.id !== PROFILE_SECTIONS.email && item.id !== PROFILE_SECTIONS.password
+      )
+    : PROFILE_MENU
+)
 </script>
 
 <template>
@@ -14,12 +26,12 @@ definePageMeta({
     <!-- List Aside -->
     <template #left>
       <UPageAside>
-        <UNavigationMenu :items="PROFILE_MENU" orientation="vertical" />
+        <UNavigationMenu :items="menuItems" orientation="vertical" />
       </UPageAside>
     </template>
 
     <!-- Content -->
-    <template v-for="({ id, label }, key) in PROFILE_MENU" :key>
+    <template v-for="({ id, label }, key) in menuItems" :key>
       <UiTitle :id :title="label || ''" variant="primary" :class="{ 'mt-3!': key === 0 }" />
 
       <!-- Username -->
