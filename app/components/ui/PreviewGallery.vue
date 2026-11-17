@@ -35,6 +35,8 @@ const selectedKey = ref(0)
         >
           <img
             :src="sheet"
+            alt="Character sheet preview"
+            loading="lazy"
             draggable="false"
             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
           />

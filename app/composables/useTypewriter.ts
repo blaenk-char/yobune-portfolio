@@ -1,7 +1,7 @@
-import { DIALOG_CONFIG } from '~/constants'
+import { DIALOG_CONFIG } from '#shared/constants'
 
 /**
- * Displays text in typewriter style. For speed settings, look up app.dialog.speed.
+ * Displays text in typewriter style.
  *
  * @param text Text to display
  */

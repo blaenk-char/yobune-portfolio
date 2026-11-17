@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { CHARACTER_SHEETS, DialogId } from '~/constants'
+import { CHARACTER_SHEETS, DialogId } from '#shared/constants'
 </script>
 
 <template>

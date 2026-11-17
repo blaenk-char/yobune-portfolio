@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /* Imports */
-import { DialogId, WORK_CONFIG } from '~/constants'
+import { DialogId, WORK_CONFIG } from '#shared/constants'
 
 /* Constants */
 const { isMobile } = useDevice()
@@ -13,19 +13,19 @@ const { isMobile } = useDevice()
 
     <!-- Timelapse -->
     <div>
-      <UiTitle :title="WORK_CONFIG.timelapse.title" secondary />
+      <UiTitle :title="WORK_CONFIG.timelapse.title" variant="secondary" />
       <video :src="WORK_CONFIG.timelapse.video" class="w-full rounded-xl" autoplay muted loop />
     </div>
 
     <!-- Quality Comparison -->
     <div>
-      <UiTitle :title="WORK_CONFIG.quality.title" secondary />
+      <UiTitle :title="WORK_CONFIG.quality.title" variant="secondary" />
       <UiComparisonSlider :image-a="WORK_CONFIG.quality.low" :image-b="WORK_CONFIG.quality.high" />
     </div>
 
     <!-- Work Process -->
     <div class="col-span-1 sm:col-span-2">
-      <UiTitle :title="WORK_CONFIG.process.title" secondary />
+      <UiTitle :title="WORK_CONFIG.process.title" variant="secondary" />
       <div class="flex flex-col sm:flex-row gap-0 items-center">
         <template v-for="(item, key) in WORK_CONFIG.process.items" :key>
           <UIcon

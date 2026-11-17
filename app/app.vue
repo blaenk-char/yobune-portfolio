@@ -1,6 +1,6 @@
 <script setup>
 /* Imports */
-import { DIALOG_CONFIG } from './constants'
+import { DIALOG_CONFIG } from '#shared/constants'
 
 /* Head */
 useHead({
@@ -13,22 +13,19 @@ useHead({
 
 /* Constants */
 const dialog = useDialogStore()
+const dialogCookie = useCookie(DIALOG_CONFIG.storageKey)
 
 /* Lifecycle Hooks */
 onNuxtReady(() => {
-  if (!localStorage.getItem(DIALOG_CONFIG.storageKey)) dialog.next()
+  if (dialogCookie.value !== false) dialog.next()
 })
 </script>
 
 <template>
   <UApp>
-    <LayoutHeader />
-
     <NuxtLayout>
       <LayoutCursor />
       <NuxtPage />
     </NuxtLayout>
-
-    <LayoutFooter />
   </UApp>
 </template>
