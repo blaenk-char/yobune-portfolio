@@ -17,10 +17,39 @@ export const primitives = {
     .min(3, ERROR_MESSAGE.username.min)
     .max(50, ERROR_MESSAGE.username.max)
     .regex(/^[a-zA-Z0-9_-]+$/, ERROR_MESSAGE.username.regex),
+  uuid: z.uuid(),
+  title: zString(ERROR_MESSAGE.commission.titleRequired).max(
+    128,
+    ERROR_MESSAGE.commission.titleMax
+  ),
+  description: zString(ERROR_MESSAGE.commission.descriptionRequired),
+  label: zString(ERROR_MESSAGE.commission.labelRequired).max(
+    255,
+    ERROR_MESSAGE.commission.labelMax
+  ),
+  placeholder: z.string().max(255, ERROR_MESSAGE.commission.placeholderMax),
+  price: z.number().min(0, ERROR_MESSAGE.commission.priceMin),
+  modifierValue: z.number().default(0),
+  slotsTotal: z.number().int().min(0, ERROR_MESSAGE.commission.slotsMin).default(0),
+  sortOrder: z.number().int().min(0).default(0),
+  booleanDefaultFalse: z.boolean().default(false),
+  booleanDefaultTrue: z.boolean().default(true),
+  commissionFieldType: z.enum(['text', 'file', 'checkbox', 'radio']),
+  commissionModifierType: z.enum(['none', 'flat', 'multiplier']),
+  commissionOrderStatus: z.enum([
+    'pending',
+    'in_queue',
+    'in_progress',
+    'completed',
+    'declined',
+    'cancelled'
+  ]),
   string: {
     email: zString(ERROR_MESSAGE.required.email),
     password: zString(ERROR_MESSAGE.required.password),
-    token: zString(ERROR_MESSAGE.auth.token)
+    token: zString(ERROR_MESSAGE.auth.token),
+    url: zString(ERROR_MESSAGE.storage.uploadFailed),
+    filePath: zString(ERROR_MESSAGE.shop.fileRequired)
   }
 }
 

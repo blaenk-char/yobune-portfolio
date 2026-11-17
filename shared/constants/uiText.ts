@@ -35,5 +35,25 @@ export const UI_TEXT = {
   titleConfirm: 'Confirm your profile',
   titleForgotPassword: 'Send a reset link',
   username: 'Username',
-  usernameUpdate: 'Update Username'
+  usernameUpdate: 'Update Username',
+  commissions: 'Commissions',
+  shop: 'Shop',
+  workQueue: 'Work Queue',
+  adminDashboard: 'Admin Dashboard',
+  myCommissions: 'My Commissions & Downloads',
+  slotsAvailable: 'Slots Available',
+  slotsFull: 'Closed / Full',
+  basePrice: 'Base Price',
+  totalPrice: 'Estimated Total',
+  requestCommission: 'Request Commission',
+  claimDownload: 'Get / Download',
+  downloadFile: 'Download File',
+  status: {
+    pending: 'Pending Review',
+    in_queue: 'In Queue',
+    in_progress: 'In Progress',
+    completed: 'Completed',
+    declined: 'Declined',
+    cancelled: 'Cancelled'
+  }
 }

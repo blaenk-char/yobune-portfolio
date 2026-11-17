@@ -7,5 +7,15 @@ export const SUCCESS_MESSAGE = {
   updatePassword: 'Password updated successfully.',
   emailUpdate: 'Email updated successfully.',
   usernameUpdated: 'Username updated successfully.',
-  accountDeleted: 'Your account has been deleted.'
+  accountDeleted: 'Your account has been deleted.',
+  commissionServiceCreated: 'Commission service created successfully.',
+  commissionServiceUpdated: 'Commission service updated successfully.',
+  commissionServiceDeleted: 'Commission service deleted successfully.',
+  commissionOrderSubmitted: 'Your commission request has been submitted!',
+  commissionOrderUpdated: 'Commission status updated successfully.',
+  commissionOrderCancelled: 'Your commission request has been cancelled.',
+  shopProductCreated: 'Shop product created successfully.',
+  shopProductUpdated: 'Shop product updated successfully.',
+  shopProductDeleted: 'Shop product deleted successfully.',
+  shopProductClaimed: 'Product added to your downloads!'
 }
