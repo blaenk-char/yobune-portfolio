@@ -11,10 +11,202 @@ model profiles {
     id       String    @id @db.Uuid
     username String    @unique @db.VarChar(64)
     role     user_role @default(user)
+
+    commission_orders commission_orders[]
+    shop_orders       shop_orders[]
+}
+
+model commission_services {
+    id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    title       String   @db.VarChar(128)
+    description String   @db.Text
+    base_price  Decimal  @db.Decimal(10, 2)
+    slots_total Int      @default(0)
+    is_nsfw     Boolean  @default(false)
+    is_active   Boolean  @default(true)
+    created_at  DateTime @default(now()) @db.Timestamptz(6)
+    updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+    previews commission_service_previews[]
+    form     commission_forms?
+    orders   commission_orders[]
+}
+
+model commission_service_previews {
+    id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    service_id String @db.Uuid
+    url        String @db.Text
+    sort_order Int    @default(0)
+
+    service commission_services @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+    @@index([service_id])
+}
+
+model commission_forms {
+    id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    service_id  String  @unique @db.Uuid
+    title       String  @db.VarChar(128)
+    description String? @db.Text
+
+    service  commission_services        @relation(fields: [service_id], references: [id], onDelete: Cascade)
+    sections commission_form_sections[]
+}
+
+model commission_form_sections {
+    id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    form_id     String  @db.Uuid
+    title       String  @db.VarChar(128)
+    description String? @db.Text
+    sort_order  Int     @default(0)
+
+    form   commission_forms         @relation(fields: [form_id], references: [id], onDelete: Cascade)
+    fields commission_form_fields[]
+
+    @@index([form_id])
+}
+
+model commission_form_fields {
+    id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    section_id  String                @db.Uuid
+    type        commission_field_type
+    label       String                @db.VarChar(255)
+    placeholder String?               @db.VarChar(255)
+    is_required Boolean               @default(false)
+    sort_order  Int                   @default(0)
+
+    section commission_form_sections        @relation(fields: [section_id], references: [id], onDelete: Cascade)
+    options commission_form_field_options[]
+    answers commission_order_answers[]
+
+    @@index([section_id])
+}
+
+model commission_form_field_options {
+    id             String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    field_id       String                   @db.Uuid
+    label          String                   @db.VarChar(255)
+    modifier_type  commission_modifier_type @default(none)
+    modifier_value Decimal                  @default(0) @db.Decimal(10, 2)
+    sort_order     Int                      @default(0)
+
+    field   commission_form_fields     @relation(fields: [field_id], references: [id], onDelete: Cascade)
+    answers commission_order_answers[]
+
+    @@index([field_id])
+}
+
+model commission_orders {
+    id          String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    user_id     String                  @db.Uuid
+    service_id  String                  @db.Uuid
+    status      commission_order_status @default(pending)
+    total_price Decimal                 @db.Decimal(10, 2)
+    created_at  DateTime                @default(now()) @db.Timestamptz(6)
+    updated_at  DateTime                @updatedAt @db.Timestamptz(6)
+
+    user         profiles                        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    service      commission_services             @relation(fields: [service_id], references: [id], onDelete: Restrict)
+    answers      commission_order_answers[]
+    deliverables commission_order_deliverables[]
+
+    @@index([user_id])
+    @@index([service_id])
+    @@index([status])
+}
+
+model commission_order_answers {
+    id         String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    order_id   String  @db.Uuid
+    field_id   String  @db.Uuid
+    option_id  String? @db.Uuid
+    text_value String? @db.Text
+    file_path  String? @db.Text
+
+    order  commission_orders              @relation(fields: [order_id], references: [id], onDelete: Cascade)
+    field  commission_form_fields         @relation(fields: [field_id], references: [id], onDelete: Restrict)
+    option commission_form_field_options? @relation(fields: [option_id], references: [id], onDelete: Restrict)
+
+    @@index([order_id])
+    @@index([field_id])
+    @@index([option_id])
+}
+
+model commission_order_deliverables {
+    id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    order_id   String   @db.Uuid
+    file_path  String   @db.Text
+    created_at DateTime @default(now()) @db.Timestamptz(6)
+
+    order commission_orders @relation(fields: [order_id], references: [id], onDelete: Cascade)
+
+    @@index([order_id])
+}
+
+model shop_products {
+    id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    title        String   @db.VarChar(128)
+    description  String   @db.Text
+    price        Decimal  @db.Decimal(10, 2)
+    is_nsfw      Boolean  @default(false)
+    is_published Boolean  @default(false)
+    file_path    String   @db.Text
+    created_at   DateTime @default(now()) @db.Timestamptz(6)
+    updated_at   DateTime @updatedAt @db.Timestamptz(6)
+
+    previews shop_product_previews[]
+    orders   shop_orders[]
+}
+
+model shop_product_previews {
+    id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    product_id String @db.Uuid
+    url        String @db.Text
+    sort_order Int    @default(0)
+
+    product shop_products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+    @@index([product_id])
+}
+
+model shop_orders {
+    id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    user_id    String   @db.Uuid
+    product_id String   @db.Uuid
+    claimed_at DateTime @default(now()) @db.Timestamptz(6)
+
+    user    profiles      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    product shop_products @relation(fields: [product_id], references: [id], onDelete: Restrict)
+
+    @@unique([user_id, product_id])
+    @@index([user_id])
+    @@index([product_id])
 }
 
 enum user_role {
     super_admin
     admin
     user
+}
+
+enum commission_field_type {
+    text
+    file
+    checkbox
+    radio
+}
+
+enum commission_modifier_type {
+    none
+    flat
+    multiplier
+}
+
+enum commission_order_status {
+    pending
+    in_queue
+    in_progress
+    completed
+    declined
+    cancelled
 }
