@@ -35,6 +35,11 @@ export const ERROR_MESSAGE = {
     email: 'Email is required',
     password: 'Password is required'
   },
+  storage: {
+    uploadFailed: 'Failed to upload file',
+    downloadFailed: 'Failed to generate download link',
+    deleteFailed: 'Failed to delete file'
+  },
   rateLimit: 'Too many requests, please try again later',
   server: 'Something went wrong'
 }

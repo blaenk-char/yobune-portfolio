@@ -164,7 +164,7 @@ alter table public.shop_orders enable row level security;
 create or replace function public.is_admin()
 returns boolean
 language sql
-security definer
+security invoker
 set search_path = ''
 stable
 as $$
@@ -175,6 +175,9 @@ as $$
       and role in ('admin', 'super_admin')
   );
 $$;
+
+revoke execute on function public.is_admin() from public, anon;
+grant execute on function public.is_admin() to authenticated;
 
 -- 1. Commission Services & Form Structure (Public Read for Active, Admin Full Access)
 create policy "Anyone can read active commission services"

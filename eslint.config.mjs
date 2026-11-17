@@ -9,6 +9,7 @@ export default withNuxt({
     'vue/operator-linebreak': 'off',
     '@stylistic/quotes': 'off',
     '@stylistic/arrow-parens': 'off',
-    '@stylistic/operator-linebreak': 'off'
+    '@stylistic/operator-linebreak': 'off',
+    '@stylistic/member-delimiter-style': 'off'
   }
 })
