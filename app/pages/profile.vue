@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /* Imports */
-import { PROFILE_MENU, PROFILE_SECTIONS } from '#shared/constants'
+import { PAGES, PROFILE_MENU, PROFILE_SECTIONS } from '#shared/constants'
 
 /* Page */
 definePageMeta({
-  layout: 'public',
-  middleware: 'auth'
+  layout: PAGES.profile.layout,
+  middleware: PAGES.profile.middleware
 })
 
 /* Constants */

@@ -9,6 +9,9 @@ export const useAuthStore = defineStore('auth', () => {
   const ready = ref<boolean>(false)
 
   /* Computeds */
+  const isAdmin = computed<boolean>(() =>
+    Boolean(profile.value?.role && ['admin', 'super_admin'].includes(profile.value.role))
+  )
   const isOAuth = computed<boolean>(() => {
     const providers = user.value?.app_metadata?.providers as string[] | undefined
     if (providers?.length) return !providers.includes('email')
@@ -26,6 +29,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     profile,
     ready,
+    isAdmin,
     isOAuth,
     clear
   }

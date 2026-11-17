@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /* Imports */
-import { UI_TEXT } from '#shared/constants'
+import { PAGES, UI_TEXT } from '#shared/constants'
 
 /* Page */
 definePageMeta({
-  layout: 'public',
-  middleware: 'guest'
+  layout: PAGES.auth.layout,
+  middleware: PAGES.auth.middleware
 })
 
 /* Constants */

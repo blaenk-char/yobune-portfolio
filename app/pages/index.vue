@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /* Imports */
-import { TITLES } from '#shared/constants'
+import { PAGES, TITLES } from '#shared/constants'
 
 /* Page */
 definePageMeta({
-  layout: 'public'
+  layout: PAGES.home.layout
 })
 </script>
 

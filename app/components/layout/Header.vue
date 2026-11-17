@@ -1,6 +1,17 @@
 <script setup lang="ts">
 /* Imports */
-import { CURSOR_CONFIG, DIALOG_CONFIG, PAGES, SOCIALS, TITLES, UI_TEXT } from '#shared/constants'
+import {
+  ADMIN_NAVIGATION,
+  APP_NAVIGATION,
+  CURSOR_CONFIG,
+  DIALOG_CONFIG,
+  GUEST_NAVIGATION,
+  HEADER_NAVIGATION,
+  SOCIALS,
+  TITLES,
+  UI_TEXT,
+  USER_NAVIGATION
+} from '#shared/constants'
 import { createReusableTemplate } from '@vueuse/core'
 
 /* Constants */
@@ -19,6 +30,13 @@ const cursorLabel = computed(() =>
   settingsStore.cursor ? CURSOR_CONFIG.trueLabel : CURSOR_CONFIG.falseLabel
 )
 const avatarText = computed(() => authStore.profile?.username.at(0)?.toUpperCase() ?? '?')
+const menuItems = computed(() => [
+  APP_NAVIGATION,
+  authStore.profile
+    ? [...USER_NAVIGATION, ...(authStore.isAdmin ? ADMIN_NAVIGATION : [])]
+    : GUEST_NAVIGATION,
+  SOCIALS
+])
 
 /* Watches */
 watch(
@@ -35,22 +53,8 @@ watch(
     <div class="flex flex-col h-full">
       <!-- Top -->
       <div class="flex-1">
-        <!-- Links -->
-        <UNavigationMenu :items="SOCIALS" orientation="vertical" />
-
-        <USeparator class="my-2" />
-
-        <!-- Menu Button -->
-        <UButton
-          :to="authStore.profile ? PAGES.profile.url : PAGES.auth.url"
-          variant="ghost"
-          size="md"
-          color="neutral"
-          block
-          class="justify-start"
-        >
-          {{ authStore.profile ? UI_TEXT.profile : `${UI_TEXT.login} / ${UI_TEXT.register}` }}
-        </UButton>
+        <!-- Combined App, User & Social Navigation -->
+        <UNavigationMenu :items="menuItems" orientation="vertical" />
       </div>
 
       <USeparator class="my-2" />
@@ -100,7 +104,7 @@ watch(
     <template #title> {{ TITLES.main }} </template>
 
     <!-- Links -->
-    <UNavigationMenu :items="SOCIALS" class="hidden xl:inline-flex" />
+    <UNavigationMenu :items="HEADER_NAVIGATION" class="hidden xl:inline-flex" />
 
     <!-- Right Side -->
     <template #right>

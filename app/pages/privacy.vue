@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /* Imports */
-import { PRIVACY_POLICY } from '#shared/constants'
+import { PAGES, PRIVACY_POLICY } from '#shared/constants'
 
 /* Page */
 definePageMeta({
-  layout: 'public'
+  layout: PAGES.privacy.layout
 })
 </script>
 
